@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Journeyman — F1</title>
+<meta name="description" content="Guess the mystery Formula 1 driver from their career, one season at a time.">
+<meta name="theme-color" content="#0B0D10">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iIzBCMEQxMCIvPjxnIHRyYW5zZm9ybT0icm90YXRlKC04IDE2IDE2KSI+PHJlY3QgeD0iOCIgeT0iOSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE0IiBmaWxsPSIjRThFQUVEIi8+PGcgZmlsbD0iIzBCMEQxMCI+PHJlY3QgeD0iOCIgeT0iOSIgd2lkdGg9IjQiIGhlaWdodD0iMy41Ii8+PHJlY3QgeD0iMTYiIHk9IjkiIHdpZHRoPSI0IiBoZWlnaHQ9IjMuNSIvPjxyZWN0IHg9IjEyIiB5PSIxMi41IiB3aWR0aD0iNCIgaGVpZ2h0PSIzLjUiLz48cmVjdCB4PSIyMCIgeT0iMTIuNSIgd2lkdGg9IjQiIGhlaWdodD0iMy41Ii8+PHJlY3QgeD0iOCIgeT0iMTYiIHdpZHRoPSI0IiBoZWlnaHQ9IjMuNSIvPjxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjQiIGhlaWdodD0iMy41Ii8+PHJlY3QgeD0iMTIiIHk9IjE5LjUiIHdpZHRoPSI0IiBoZWlnaHQ9IjMuNSIvPjxyZWN0IHg9IjIwIiB5PSIxOS41IiB3aWR0aD0iNCIgaGVpZ2h0PSIzLjUiLz48L2c+PC9nPjwvc3ZnPg==">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iIzBCMEQxMCIvPjxnIHRyYW5zZm9ybT0icm90YXRlKC04IDE2IDE2KSI+PHJlY3QgeD0iOCIgeT0iOSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE0IiBmaWxsPSIjRThFQUVEIi8+PGcgZmlsbD0iIzBCMEQxMCI+PHJlY3QgeD0iOCIgeT0iOSIgd2lkdGg9IjQiIGhlaWdodD0iMy41Ii8+PHJlY3QgeD0iMTYiIHk9IjkiIHdpZHRoPSI0IiBoZWlnaHQ9IjMuNSIvPjxyZWN0IHg9IjEyIiB5PSIxMi41IiB3aWR0aD0iNCIgaGVpZ2h0PSIzLjUiLz48cmVjdCB4PSIyMCIgeT0iMTIuNSIgd2lkdGg9IjQiIGhlaWdodD0iMy41Ii8+PHJlY3QgeD0iOCIgeT0iMTYiIHdpZHRoPSI0IiBoZWlnaHQ9IjMuNSIvPjxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjQiIGhlaWdodD0iMy41Ii8+PHJlY3QgeD0iMTIiIHk9IjE5LjUiIHdpZHRoPSI0IiBoZWlnaHQ9IjMuNSIvPjxyZWN0IHg9IjIwIiB5PSIxOS41IiB3aWR0aD0iNCIgaGVpZ2h0PSIzLjUiLz48L2c+PC9nPjwvc3ZnPg==">
+<!-- Google tag (gtag.js) -->
+<!-- TODO: swap G-XXXXXXXXXX for the real measurement ID before going live. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0D10; --felt:#15181D; --felt2:#1E232B; --line:#2C333D;
+  --accent:#E10600; --onaccent:#FFFFFF; --flag:#E8EAED; --dim:#8B95A3;
+  --err:#F0666B; --ok:#3FB950;
+  --radius:10px;
+}
+[data-theme="light"]{
+  --ink:#F2F3F5; --felt:#FFFFFF; --felt2:#E9EBEE; --line:#D2D6DC;
+  --flag:#12151A; --dim:#5F6B7A; --accent:#C40500;
+  --err:#C0392B; --ok:#2E7D3C;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%}
+body{
+  min-height:100%; background:var(--ink); color:var(--flag);
+  font-family:'Archivo',system-ui,sans-serif; font-size:16px;
+  display:flex; flex-direction:column;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input{font-family:inherit}
+
+/* ---------- header ---------- */
+header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 16px 8px; max-width:560px; width:100%; margin:0 auto;
+}
+.wordmark{font-family:'Archivo Black',sans-serif; font-size:20px; letter-spacing:.5px; line-height:1}
+.wordmark small{display:block; font-family:'IBM Plex Mono',monospace; font-weight:400;
+  font-size:10px; letter-spacing:3px; color:var(--accent); margin-top:3px}
+.hbtns{display:flex; gap:4px}
+.hbtn{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;font-size:18px}
+.hbtn:active{background:var(--felt)}
+a.hbtn{color:inherit;text-decoration:none}
+.coffeebtn{font-size:17px}
+.coffeebtn:hover{background:var(--felt)}
+/* wordmark + four 40px buttons stop fitting below ~360px (iPhone SE) */
+@media (max-width:359px){
+  .wordmark{font-size:18px}
+  .hbtn{width:34px;height:34px;font-size:16px}
+  .go{padding:0 14px}
+}
+.crossplay{display:flex; justify-content:center; max-width:560px; margin:0 auto; padding:2px 16px 0}
+.playother{display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:600;
+  color:var(--accent); border:1px solid var(--line); border-radius:999px; padding:5px 15px}
+.playother:hover{background:var(--felt2)}
+
+/* ---------- mode tabs ---------- */
+.tabs{display:flex; gap:8px; padding:8px 16px; max-width:560px; width:100%; margin:0 auto}
+.tab{
+  flex:1; padding:10px 0; border-radius:var(--radius); font-weight:600; font-size:14px;
+  background:var(--felt); color:var(--dim); border:1px solid var(--line);
+}
+.tab.on{background:var(--felt2); color:var(--flag); border-color:var(--accent)}
+.tab .sub{display:block;font-size:10px;font-weight:400;font-family:'IBM Plex Mono',monospace;margin-top:2px}
+
+/* ---------- main / table ---------- */
+main{flex:1; width:100%; max-width:560px; margin:0 auto; padding:8px 16px 140px}
+.meta{
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--flag);
+  padding:6px 2px;
+}
+.meta b{color:var(--accent);font-weight:600}
+.card{
+  background:var(--felt); border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden;
+}
+/* Eight narrow numeric columns; table-layout:fixed keeps them from fighting
+   over the 390px viewport the game is really played on. */
+table{width:100%; table-layout:fixed; border-collapse:collapse;
+  font-family:'IBM Plex Mono',monospace; font-size:12px}
+col.cy{width:22%}
+thead th{
+  text-align:right; padding:9px 3px; font-weight:600; font-size:10px; letter-spacing:.4px;
+  color:var(--dim); border-bottom:1px solid var(--line); text-transform:uppercase; cursor:help;
+  vertical-align:bottom;
+}
+/* full stat words when there's room; abbreviations on narrow screens */
+.hlong{display:none} .hshort{display:inline}
+@media (min-width:560px){ .hlong{display:inline} .hshort{display:none} table{font-size:13px} thead th{padding:10px 6px} td{padding:10px 6px} }
+thead th:first-child, td:first-child{text-align:left}
+td{padding:9px 3px; border-bottom:1px solid var(--line); text-align:right; white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr.season{animation:print .45s ease both}
+@keyframes print{from{opacity:0; transform:translateY(-6px)} to{opacity:1; transform:none}}
+@media (prefers-reduced-motion: reduce){ tr.season{animation:none} }
+tr.masked td{color:var(--line); letter-spacing:2px}
+tr.bonus td{color:var(--accent); text-align:left; white-space:normal}
+
+/* ---------- feedback chips ---------- */
+.chips{display:flex; flex-wrap:wrap; gap:6px; padding:10px 2px}
+.chip{
+  font-family:'IBM Plex Mono',monospace; font-size:11px; padding:6px 10px;
+  border-radius:999px; border:1px solid var(--line); background:var(--felt); color:var(--dim);
+}
+.chip.yes{border-color:var(--ok); color:var(--ok)}
+.chip.no{border-color:var(--err); color:var(--err)}
+
+/* ---------- guess history ---------- */
+.guesses{display:flex; flex-direction:column; gap:6px; padding:4px 0}
+.guessrow{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  background:var(--felt); border:1px solid var(--line); border-radius:8px;
+  padding:9px 12px; font-size:14px; animation:print .3s ease both;
+}
+.guessrow .n{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);white-space:nowrap}
+.guessrow.wrong{border-left:3px solid var(--err)}
+.guessrow.right{border-left:3px solid var(--ok)}
+
+/* ---------- sticky guess bar ---------- */
+.guessbar{
+  position:fixed; left:0; right:0; bottom:0; z-index:20;
+  background:linear-gradient(transparent, var(--ink) 24%);
+  padding:20px 16px calc(14px + env(safe-area-inset-bottom));
+}
+.guessbar .inner{max-width:560px;margin:0 auto;position:relative}
+.acwrap{position:absolute; left:0; right:0; bottom:calc(100% + 6px); max-height:220px; overflow:auto;
+  background:var(--felt2); border:1px solid var(--line); border-radius:var(--radius); display:none}
+.acwrap.open{display:block}
+.acitem{width:100%; text-align:left; padding:12px 14px; font-size:15px; border-bottom:1px solid var(--line)}
+.acitem:last-child{border-bottom:none}
+.acitem:active,.acitem.hl{background:var(--felt)}
+.acitem small{color:var(--dim); font-family:'IBM Plex Mono',monospace; font-size:10px; margin-left:8px}
+.inputrow{display:flex; gap:8px}
+#guessInput{
+  flex:1; background:var(--felt); border:1px solid var(--line); border-radius:var(--radius);
+  color:var(--flag); font-size:16px; padding:14px 14px; outline:none;
+}
+#guessInput:focus{border-color:var(--accent)}
+#guessInput::placeholder{color:var(--dim)}
+.go{
+  background:var(--accent); color:var(--onaccent); font-weight:700; font-size:14px;
+  padding:0 20px; border-radius:var(--radius);
+}
+.go:disabled{opacity:.35}
+.remain{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);text-align:center;padding-top:8px}
+.remain b{color:var(--accent)}
+.aux{display:flex;gap:8px;padding-top:8px}
+.auxbtn{flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);
+  border:1px solid var(--line);border-radius:8px;padding:9px 4px;background:var(--felt)}
+.auxbtn:active{border-color:var(--accent);color:var(--flag)}
+/* "Box for a clue (uses a guess)" is the long one — give it the room so it
+   stays on a single line beside "Retire" at 390px */
+#btnClue{flex:1.9}
+.auxbtn:disabled{opacity:.3}
+.auxbtn[hidden]{display:none}
+.guessrow.skip{border-left:3px solid var(--line);color:var(--dim)}
+.sharefallback{display:none;margin-top:12px;background:var(--felt);border:1px solid var(--line);
+  border-radius:8px;padding:12px;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  white-space:pre-wrap;user-select:all;-webkit-user-select:all}
+
+/* ---------- modal ---------- */
+.overlay{
+  position:fixed; inset:0; background:rgba(4,6,9,.74); z-index:40;
+  display:none; align-items:flex-end; justify-content:center;
+}
+.overlay.open{display:flex}
+.sheet{
+  background:var(--ink); border:1px solid var(--line); border-bottom:none;
+  border-radius:16px 16px 0 0; width:100%; max-width:560px; max-height:86vh; overflow:auto;
+  padding:20px 20px calc(24px + env(safe-area-inset-bottom));
+  animation:up .25s ease both;
+}
+@keyframes up{from{transform:translateY(30px);opacity:0} to{transform:none;opacity:1}}
+@media (prefers-reduced-motion: reduce){ .sheet{animation:none} }
+.sheet h2{font-family:'Archivo Black',sans-serif; font-size:18px; margin-bottom:14px}
+.sheet p{font-size:14px; line-height:1.55; color:var(--dim); margin-bottom:10px}
+.sheet p b{color:var(--flag)}
+.closex{position:sticky; top:0; float:right; font-size:20px; color:var(--dim); padding:4px 8px}
+.bigresult{text-align:center; padding:10px 0 4px}
+.bigresult .who{font-family:'Archivo Black',sans-serif; font-size:26px; margin:6px 0 2px}
+.bigresult .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--dim); letter-spacing:1px}
+.bigresult .verdict{font-size:13px; color:var(--accent); font-weight:600; margin-top:8px}
+.sharebtn{
+  display:block; width:100%; margin-top:16px; background:var(--accent); color:var(--onaccent);
+  font-weight:700; font-size:15px; padding:14px; border-radius:var(--radius); text-align:center;
+}
+.ghost{
+  display:block; width:100%; margin-top:8px; border:1px solid var(--line);
+  font-weight:600; font-size:14px; padding:13px; border-radius:var(--radius); color:var(--dim); text-align:center;
+}
+/* other games */
+.gamelink{display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit;
+  background:var(--felt); border:1px solid var(--line); border-radius:var(--radius);
+  padding:13px 14px; margin-bottom:8px}
+.gamelink:hover{border-color:var(--accent); background:var(--felt2)}
+.gamelink .gi{font-size:22px; line-height:1}
+.gamelink .gt{flex:1; min-width:0}
+.gamelink .gt b{display:block; font-size:15px; font-weight:600}
+.gamelink .gt small{display:block; font-size:12px; color:var(--dim); margin-top:2px}
+.gamelink .ga{color:var(--accent); font-size:16px}
+/* stats */
+.statgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px}
+.statbox{background:var(--felt); border:1px solid var(--line); border-radius:8px; padding:10px 6px; text-align:center}
+.statbox .v{font-family:'Archivo Black',sans-serif; font-size:20px}
+.statbox .l{font-size:10px; color:var(--dim); margin-top:2px; line-height:1.3}
+.dist{display:flex; flex-direction:column; gap:5px}
+.distrow{display:flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:11px}
+.distbar{height:18px; background:var(--felt2); border-radius:4px; min-width:22px;
+  display:flex; align-items:center; justify-content:flex-end; padding:0 6px; color:var(--flag)}
+.distbar.hit{background:var(--accent); color:var(--onaccent); font-weight:600}
+/* settings */
+.setrow{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:14px 0; border-bottom:1px solid var(--line)}
+.setrow:last-child{border-bottom:none}
+.setrow .t{font-size:15px; font-weight:600}
+.setrow .d{font-size:12px; color:var(--dim); margin-top:2px}
+.toggle{width:50px; height:28px; border-radius:999px; background:var(--felt2); border:1px solid var(--line); position:relative; flex-shrink:0}
+.toggle::after{content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:50%; background:var(--dim); transition:transform .18s}
+.toggle.on{background:var(--accent); border-color:var(--accent)}
+.toggle.on::after{background:var(--onaccent); transform:translateX(22px)}
+.setsel{flex-shrink:0; background:var(--felt2); color:var(--flag); border:1px solid var(--line);
+  border-radius:8px; padding:9px 10px; font-family:'IBM Plex Mono',monospace; font-size:13px}
+.toast{
+  position:fixed; left:50%; bottom:120px; transform:translateX(-50%); z-index:60;
+  background:var(--felt2); border:1px solid var(--accent); border-radius:999px;
+  padding:10px 18px; font-size:13px; font-weight:600; opacity:0; pointer-events:none; transition:opacity .25s;
+  max-width:calc(100% - 32px); text-align:center;
+}
+.toast.show{opacity:1}
+.examplerow{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--felt);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0;color:var(--flag)}
+.sitefoot{max-width:560px;margin:0 auto;padding:22px 16px 8px;text-align:center}
+.sitefoot .yrs{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--dim);line-height:1.6}
+.sitefoot .yrs a{color:var(--dim);text-decoration:underline}
+.coffeeghost{display:inline-flex;align-items:center;gap:8px;justify-content:center;width:100%;margin-top:8px;
+  border:1px solid #FFDD00;color:var(--flag);font-weight:600;font-size:14px;padding:12px;border-radius:10px;text-decoration:none}
+</style>
+</head>
+<body data-theme="dark">
+
+<header>
+  <div class="wordmark">JOURNEYMAN<small>GRAND PRIX EDITION</small></div>
+  <div class="hbtns">
+    <a class="hbtn coffeebtn" id="coffeeMain" href="#" target="_blank" rel="noopener" aria-label="Buy me a coffee" title="Buy me a coffee">☕</a>
+    <button class="hbtn" id="btnHelp" aria-label="How to play">?</button>
+    <button class="hbtn" id="btnStats" aria-label="Your stats">▤</button>
+    <button class="hbtn" id="btnSettings" aria-label="Settings">⚙</button>
+  </div>
+</header>
+
+<div class="crossplay"><button class="playother" id="btnGames">🎮 Play our other games</button></div>
+
+<div class="tabs">
+  <button class="tab on" id="tabDaily">Round<span class="sub" id="dailyNo">#1</span></button>
+  <button class="tab" id="tabPractice">Testing<span class="sub">unlimited</span></button>
+</div>
+
+<main>
+  <div class="meta">
+    <span id="metaLeft">CAREER RECORD</span>
+    <span id="metaRight"></span>
+  </div>
+  <div class="card">
+    <table aria-live="polite">
+      <colgroup><col class="cy"><col><col><col><col><col><col><col></colgroup>
+      <thead><tr>
+        <th data-info="The season (year)." title="The season (year).">Year</th>
+        <th data-info="Race entries that season — every grand prix they turned up to." title="Race entries that season."><span class="hlong">Entries</span><span class="hshort">Ent</span></th>
+        <th data-info="Race starts that season — entries they actually got away from the grid." title="Race starts that season."><span class="hlong">Starts</span><span class="hshort">Str</span></th>
+        <th data-info="Race wins that season." title="Race wins that season."><span class="hlong">Wins</span><span class="hshort">Win</span></th>
+        <th data-info="Podium finishes that season — top three." title="Podium finishes that season."><span class="hlong">Podiums</span><span class="hshort">Pod</span></th>
+        <th data-info="Pole positions that season." title="Pole positions that season."><span class="hlong">Poles</span><span class="hshort">Pole</span></th>
+        <th data-info="Fastest laps that season." title="Fastest laps that season."><span class="hlong">Fastest</span><span class="hshort">FL</span></th>
+        <th data-info="Races that season ending in retirement, non-classification or disqualification." title="Retirements, non-classifications and disqualifications that season.">DNF</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div class="guesses" id="guessList"></div>
+
+  <footer class="sitefoot">
+    <div class="yrs" id="dataYears"></div>
+  </footer>
+</main>
+
+<div class="guessbar" id="guessbar">
+  <div class="inner">
+    <div class="acwrap" id="ac"></div>
+    <div class="inputrow">
+      <input id="guessInput" type="text" autocomplete="off" autocapitalize="words" placeholder="Name the driver" aria-label="Name the driver">
+      <button class="go" id="btnGo" disabled>Guess</button>
+    </div>
+    <div class="remain" id="remain"></div>
+    <div class="aux">
+      <button class="auxbtn" id="btnClue">Box for a clue (uses a guess)</button>
+      <button class="auxbtn" id="btnGiveUp">Retire</button>
+      <button class="auxbtn" id="btnResult" hidden>View result &amp; share</button>
+    </div>
+  </div>
+</div>
+
+<!-- HELP -->
+<div class="overlay" id="ovHelp"><div class="sheet">
+  <button class="closex" data-close>✕</button>
+  <h2>How to play</h2>
+  <p>A mystery driver's <b>career record</b> is revealed one season at a time, in a random order.</p>
+  <p>Every wrong guess reveals <b>another season</b>. The fewer seasons you need, the better the drive.</p>
+  <div class="examplerow">1996&nbsp;&nbsp;16&nbsp;&nbsp;16&nbsp;&nbsp;8&nbsp;&nbsp;10&nbsp;&nbsp;9&nbsp;&nbsp;5&nbsp;&nbsp;4</div>
+  <p>Each season shows race <b>entries</b> and <b>starts</b>, then <b>wins</b>, <b>podiums</b>, <b>poles</b>, <b>fastest laps</b> and <b>DNFs</b>. Tap any column heading for what it means.</p>
+  <p>Teams, engines, championship positions and points are all left out on purpose — any one of them would hand you the answer.</p>
+  <p>After each miss you get <b>clues</b>: whether you and the answer raced in the same season, whether you reached the same level, and whether the mystery driver debuted earlier or later than your guess.</p>
+  <p><b>Grand Prix mode:</b> 8 guesses, clues on. <b>Sprint mode:</b> 5 guesses, no clues.</p>
+  <p>One driver a day for everyone in <b>Round</b>, or unlimited random drivers in <b>Testing</b>.</p>
+  <p>Not affiliated with Formula 1 or the FIA. No team logos, driver photos or F1 word marks are used — public career statistics only.</p>
+</div></div>
+
+<!-- OTHER GAMES -->
+<div class="overlay" id="ovGames"><div class="sheet">
+  <button class="closex" data-close>✕</button>
+  <h2>Play our other games</h2>
+  <p>Same daily habit, different obsession.</p>
+  <a class="gamelink" href="https://footy-journeyman.netlify.app" target="_blank" rel="noopener">
+    <span class="gi">🏉</span>
+    <span class="gt"><b>Journeyman — AFL</b><small>Guess the footy player from their career</small></span>
+    <span class="ga">→</span>
+  </a>
+  <a class="gamelink" href="https://mlb-journeyman.netlify.app" target="_blank" rel="noopener">
+    <span class="gi">⚾</span>
+    <span class="gt"><b>Journeyman — MLB</b><small>Guess the ballplayer from their career</small></span>
+    <span class="ga">→</span>
+  </a>
+  <a class="gamelink" href="https://nba-journeyman.netlify.app" target="_blank" rel="noopener">
+    <span class="gi">🏀</span>
+    <span class="gt"><b>Journeyman — NBA</b><small>Guess the basketballer from their career</small></span>
+    <span class="ga">→</span>
+  </a>
+  <a class="gamelink" href="https://country-globetrotter.netlify.app" target="_blank" rel="noopener">
+    <span class="gi">🌍</span>
+    <span class="gt"><b>Globetrotter</b><small>Guess the country from its clues</small></span>
+    <span class="ga">→</span>
+  </a>
+</div></div>
+
+<!-- STATS -->
+<div class="overlay" id="ovStats"><div class="sheet">
+  <button class="closex" data-close>✕</button>
+  <h2>Your record</h2>
+  <div class="statgrid" id="statGrid"></div>
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;margin-bottom:6px">GUESS DISTRIBUTION (ROUNDS)</p>
+  <div class="dist" id="dist"></div>
+</div></div>
+
+<!-- SETTINGS -->
+<div class="overlay" id="ovSettings"><div class="sheet">
+  <button class="closex" data-close>✕</button>
+  <h2>Settings</h2>
+  <div class="setrow">
+    <div><div class="t">Sprint mode</div><div class="d">5 guesses instead of 8, no clue chips, no bonus reveals. Applies from your next game.</div></div>
+    <button class="toggle" id="tglHard" role="switch" aria-label="Sprint mode"></button>
+  </div>
+  <div class="setrow">
+    <div><div class="t">Light theme</div><div class="d">For reading in the sun on a grandstand.</div></div>
+    <button class="toggle" id="tglLight" role="switch" aria-label="Light theme"></button>
+  </div>
+  <div class="setrow">
+    <div><div class="t">Years in search</div><div class="d">Show each driver's active seasons next to their name in the search list.</div></div>
+    <button class="toggle" id="tglAcYears" role="switch" aria-label="Years in search"></button>
+  </div>
+  <div class="setrow">
+    <div><div class="t">Minimum race starts</div><div class="d">How established a driver has to be to turn up as the answer.</div></div>
+    <select class="setsel" id="selStarts" aria-label="Minimum race starts">
+      <option value="20">20</option><option value="30">30</option>
+      <option value="50">50</option><option value="100">100</option>
+    </select>
+  </div>
+  <div class="setrow">
+    <div><div class="t">Earliest era</div><div class="d">Filters on the driver's last season, so a career that ended in 1982 still counts at the 1980 setting.</div></div>
+    <select class="setsel" id="selEra" aria-label="Earliest era">
+      <option value="1950">1950</option><option value="1970">1970</option>
+      <option value="1980">1980</option><option value="1990">1990</option>
+      <option value="2000">2000</option>
+    </select>
+  </div>
+  <div class="setrow">
+    <div><div class="t">About those two</div><div class="d">Minimum starts and earliest era apply to <b>Testing only</b>. The daily Round is always locked to 30 starts and 1980, so everyone gets the same puzzle and shared results are comparable.</div></div>
+  </div>
+  <div class="setrow">
+    <div><div class="t">About</div><div class="d">Journeyman is a fan-made stats game covering every Formula 1 season since 1950. Not affiliated with Formula 1, the FIA or any team. Driver statistics are public facts via <a href="https://github.com/f1db/f1db" target="_blank" rel="noopener" style="color:inherit">F1DB</a>; no logos, driver photos or F1 word marks are used. If you enjoy it, the ☕ button on the main screen helps keep it running.</div></div>
+  </div>
+</div></div>
+
+<!-- RESULT -->
+<div class="overlay" id="ovResult"><div class="sheet">
+  <button class="closex" data-close>✕</button>
+  <div class="bigresult">
+    <div class="tag" id="resTag">ROUND #1</div>
+    <div class="who" id="resWho"></div>
+    <div class="tag" id="resCareer"></div>
+    <div class="verdict" id="resVerdict"></div>
+  </div>
+  <button class="sharebtn" id="btnShare">Share result</button>
+  <pre class="sharefallback" id="shareFallback"></pre>
+  <a class="coffeeghost" id="coffeeResult" href="#" target="_blank" rel="noopener"><span>☕</span> Enjoying this? Buy me a coffee</a>
+  <button class="ghost" id="btnAgain">Run a testing session</button>
+</div></div>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+/* =====================================================================
+   JOURNEYMAN — F1
+   ---------------------------------------------------------------------
+   Data is loaded at runtime from drivers.json (see loadData below), built
+   by build_drivers.py from the F1DB open dataset.
+   Career statistics only — no team names, logos or driver images, which
+   keeps it clean of IP and, more to the point, keeps the puzzle hard.
+   ===================================================================== */
+
+/* ┌─────────────────────────────────────────────────────────────────┐
+   │  SITE CONFIG — edit these.                                        │
+   └─────────────────────────────────────────────────────────────────┘ */
+const COFFEE_URL = "https://buymeacoffee.com/nadavmoskow";  // ← set your Buy Me a Coffee URL
+const SITE_URL = "";  // ← canonical URL used in the "Play it yourself" share link; leave "" to use the page's own address
+
+/* ---------------------------------------------------------------------
+   DATA. Loaded from drivers.json (generated by build_drivers.py from the
+   F1DB release). If the fetch fails — e.g. opened via file:// or in a
+   sandbox — we fall back to an embedded set of ~120 drivers so the game
+   still runs. On Netlify the fetch succeeds and you get the full pool.
+   Entry: {name,nat,first,last,starts,wins,poles,podiums,tier,answer,seasons?[]}
+   Season row: {y,e,s,w,p,q,f,dnf}
+   Only `answer:true` drivers (which carry `seasons`) can be the mystery.
+   --------------------------------------------------------------------- */
+const FALLBACK = [{"name":"Fernando Alonso","nat":"Spain","first":2001,"last":2026,"starts":437,"wins":32,"poles":22,"podiums":106,"tier":"Champion","answer":true,"seasons":[{"y":2001,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":2003,"e":16,"s":16,"w":1,"p":4,"q":2,"f":1,"dnf":5},{"y":2004,"e":18,"s":18,"w":0,"p":4,"q":1,"f":0,"dnf":5},{"y":2005,"e":19,"s":18,"w":7,"p":15,"q":6,"f":2,"dnf":2},{"y":2006,"e":18,"s":18,"w":7,"p":14,"q":6,"f":5,"dnf":2},{"y":2007,"e":17,"s":17,"w":4,"p":12,"q":2,"f":3,"dnf":1},{"y":2008,"e":18,"s":18,"w":2,"p":3,"q":0,"f":0,"dnf":3},{"y":2009,"e":17,"s":17,"w":0,"p":1,"q":1,"f":2,"dnf":3},{"y":2010,"e":19,"s":19,"w":5,"p":10,"q":2,"f":5,"dnf":1},{"y":2011,"e":19,"s":19,"w":1,"p":10,"q":0,"f":1,"dnf":1},{"y":2012,"e":20,"s":20,"w":3,"p":13,"q":2,"f":0,"dnf":2},{"y":2013,"e":19,"s":19,"w":2,"p":9,"q":0,"f":2,"dnf":1},{"y":2014,"e":19,"s":19,"w":0,"p":2,"q":0,"f":0,"dnf":2},{"y":2015,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2016,"e":20,"s":20,"w":0,"p":0,"q":0,"f":1,"dnf":3},{"y":2017,"e":19,"s":18,"w":0,"p":0,"q":0,"f":1,"dnf":8},{"y":2018,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2021,"e":22,"s":22,"w":0,"p":1,"q":0,"f":0,"dnf":2},{"y":2022,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2023,"e":22,"s":22,"w":0,"p":8,"q":0,"f":1,"dnf":2},{"y":2024,"e":24,"s":24,"w":0,"p":0,"q":0,"f":2,"dnf":1},{"y":2025,"e":24,"s":24,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2026,"e":11,"s":11,"w":0,"p":0,"q":0,"f":0,"dnf":4}]},{"name":"Lewis Hamilton","nat":"United Kingdom","first":2007,"last":2026,"starts":391,"wins":106,"poles":104,"podiums":207,"tier":"Champion","answer":true,"seasons":[{"y":2007,"e":17,"s":17,"w":4,"p":12,"q":6,"f":2,"dnf":1},{"y":2008,"e":18,"s":18,"w":5,"p":10,"q":7,"f":1,"dnf":1},{"y":2009,"e":17,"s":17,"w":2,"p":5,"q":4,"f":0,"dnf":3},{"y":2010,"e":19,"s":19,"w":3,"p":9,"q":1,"f":5,"dnf":3},{"y":2011,"e":19,"s":19,"w":3,"p":6,"q":1,"f":3,"dnf":3},{"y":2012,"e":20,"s":20,"w":4,"p":7,"q":7,"f":1,"dnf":5},{"y":2013,"e":19,"s":19,"w":1,"p":5,"q":5,"f":1,"dnf":1},{"y":2014,"e":19,"s":19,"w":11,"p":16,"q":7,"f":7,"dnf":3},{"y":2015,"e":19,"s":19,"w":10,"p":17,"q":11,"f":8,"dnf":1},{"y":2016,"e":21,"s":21,"w":10,"p":17,"q":12,"f":3,"dnf":2},{"y":2017,"e":20,"s":20,"w":9,"p":13,"q":11,"f":7,"dnf":0},{"y":2018,"e":21,"s":21,"w":11,"p":17,"q":11,"f":3,"dnf":1},{"y":2019,"e":21,"s":21,"w":11,"p":17,"q":5,"f":6,"dnf":0},{"y":2020,"e":16,"s":16,"w":11,"p":14,"q":10,"f":6,"dnf":0},{"y":2021,"e":22,"s":22,"w":8,"p":17,"q":5,"f":6,"dnf":1},{"y":2022,"e":22,"s":22,"w":0,"p":9,"q":0,"f":2,"dnf":1},{"y":2023,"e":22,"s":22,"w":0,"p":6,"q":1,"f":4,"dnf":2},{"y":2024,"e":24,"s":24,"w":2,"p":5,"q":0,"f":2,"dnf":2},{"y":2025,"e":24,"s":24,"w":0,"p":0,"q":0,"f":1,"dnf":3},{"y":2026,"e":11,"s":11,"w":1,"p":5,"q":0,"f":1,"dnf":0}]},{"name":"Kimi Räikkönen","nat":"Finland","first":2001,"last":2021,"starts":350,"wins":21,"poles":18,"podiums":103,"tier":"Champion","answer":true,"seasons":[{"y":2001,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2002,"e":17,"s":17,"w":0,"p":4,"q":0,"f":1,"dnf":10},{"y":2003,"e":16,"s":16,"w":1,"p":10,"q":2,"f":3,"dnf":3},{"y":2004,"e":18,"s":18,"w":1,"p":4,"q":1,"f":2,"dnf":8},{"y":2005,"e":19,"s":18,"w":7,"p":12,"q":5,"f":10,"dnf":3},{"y":2006,"e":18,"s":18,"w":0,"p":6,"q":3,"f":3,"dnf":6},{"y":2007,"e":17,"s":17,"w":6,"p":12,"q":3,"f":6,"dnf":2},{"y":2008,"e":18,"s":18,"w":2,"p":9,"q":2,"f":10,"dnf":2},{"y":2009,"e":17,"s":17,"w":1,"p":5,"q":0,"f":0,"dnf":2},{"y":2012,"e":20,"s":20,"w":1,"p":7,"q":0,"f":2,"dnf":0},{"y":2013,"e":17,"s":17,"w":1,"p":8,"q":0,"f":2,"dnf":2},{"y":2014,"e":19,"s":19,"w":0,"p":0,"q":0,"f":1,"dnf":1},{"y":2015,"e":19,"s":19,"w":0,"p":3,"q":0,"f":2,"dnf":5},{"y":2016,"e":21,"s":21,"w":0,"p":4,"q":0,"f":1,"dnf":4},{"y":2017,"e":20,"s":19,"w":0,"p":7,"q":1,"f":2,"dnf":3},{"y":2018,"e":21,"s":21,"w":1,"p":12,"q":1,"f":1,"dnf":4},{"y":2019,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2020,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":2021,"e":20,"s":20,"w":0,"p":0,"q":0,"f":0,"dnf":2}]},{"name":"Rubens Barrichello","nat":"Brazil","first":1993,"last":2011,"starts":322,"wins":11,"poles":14,"podiums":68,"tier":"Race winner","answer":true,"seasons":[{"y":1993,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":1994,"e":16,"s":15,"w":0,"p":1,"q":1,"f":0,"dnf":7},{"y":1995,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":9},{"y":1996,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1997,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":14},{"y":1998,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":10},{"y":1999,"e":16,"s":16,"w":0,"p":3,"q":1,"f":0,"dnf":5},{"y":2000,"e":17,"s":17,"w":1,"p":9,"q":1,"f":3,"dnf":4},{"y":2001,"e":17,"s":17,"w":0,"p":10,"q":0,"f":0,"dnf":3},{"y":2002,"e":17,"s":15,"w":4,"p":10,"q":3,"f":5,"dnf":5},{"y":2003,"e":16,"s":16,"w":2,"p":8,"q":3,"f":3,"dnf":5},{"y":2004,"e":18,"s":18,"w":2,"p":14,"q":4,"f":4,"dnf":1},{"y":2005,"e":19,"s":19,"w":0,"p":4,"q":0,"f":0,"dnf":2},{"y":2006,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2007,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2008,"e":18,"s":18,"w":0,"p":1,"q":0,"f":0,"dnf":5},{"y":2009,"e":17,"s":17,"w":2,"p":6,"q":1,"f":2,"dnf":1},{"y":2010,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2011,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":3}]},{"name":"Jenson Button","nat":"United Kingdom","first":2000,"last":2017,"starts":306,"wins":15,"poles":8,"podiums":50,"tier":"Champion","answer":true,"seasons":[{"y":2000,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2001,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2002,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2003,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2004,"e":18,"s":18,"w":0,"p":10,"q":1,"f":0,"dnf":3},{"y":2005,"e":17,"s":16,"w":0,"p":2,"q":1,"f":0,"dnf":5},{"y":2006,"e":18,"s":18,"w":1,"p":3,"q":1,"f":0,"dnf":4},{"y":2007,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2008,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2009,"e":17,"s":17,"w":6,"p":9,"q":4,"f":2,"dnf":1},{"y":2010,"e":19,"s":19,"w":2,"p":7,"q":0,"f":1,"dnf":2},{"y":2011,"e":19,"s":19,"w":3,"p":12,"q":0,"f":3,"dnf":2},{"y":2012,"e":20,"s":20,"w":3,"p":6,"q":1,"f":2,"dnf":2},{"y":2013,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":0},{"y":2014,"e":19,"s":19,"w":0,"p":1,"q":0,"f":0,"dnf":1},{"y":2015,"e":19,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2016,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2017,"e":1,"s":1,"w":0,"p":0,"q":0,"f":0,"dnf":1}]},{"name":"Michael Schumacher","nat":"Germany","first":1991,"last":2012,"starts":306,"wins":91,"poles":68,"podiums":155,"tier":"Champion","answer":true,"seasons":[{"y":1991,"e":6,"s":6,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":1992,"e":16,"s":16,"w":1,"p":8,"q":0,"f":2,"dnf":4},{"y":1993,"e":16,"s":16,"w":1,"p":9,"q":0,"f":5,"dnf":7},{"y":1994,"e":14,"s":14,"w":8,"p":10,"q":6,"f":8,"dnf":4},{"y":1995,"e":17,"s":17,"w":9,"p":11,"q":4,"f":8,"dnf":4},{"y":1996,"e":16,"s":15,"w":3,"p":8,"q":4,"f":2,"dnf":6},{"y":1997,"e":17,"s":17,"w":5,"p":8,"q":3,"f":3,"dnf":4},{"y":1998,"e":16,"s":16,"w":6,"p":11,"q":3,"f":6,"dnf":3},{"y":1999,"e":10,"s":9,"w":2,"p":6,"q":3,"f":5,"dnf":2},{"y":2000,"e":17,"s":17,"w":9,"p":12,"q":9,"f":2,"dnf":4},{"y":2001,"e":17,"s":17,"w":9,"p":14,"q":11,"f":3,"dnf":2},{"y":2002,"e":17,"s":17,"w":11,"p":17,"q":7,"f":7,"dnf":0},{"y":2003,"e":16,"s":16,"w":6,"p":8,"q":5,"f":5,"dnf":1},{"y":2004,"e":18,"s":18,"w":13,"p":15,"q":8,"f":10,"dnf":1},{"y":2005,"e":19,"s":19,"w":1,"p":5,"q":1,"f":3,"dnf":6},{"y":2006,"e":18,"s":18,"w":7,"p":12,"q":4,"f":7,"dnf":2},{"y":2010,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2011,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2012,"e":20,"s":20,"w":0,"p":1,"q":0,"f":1,"dnf":7}]},{"name":"Sebastian Vettel","nat":"Germany","first":2007,"last":2022,"starts":299,"wins":53,"poles":57,"podiums":122,"tier":"Champion","answer":true,"seasons":[{"y":2007,"e":8,"s":8,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2008,"e":18,"s":18,"w":1,"p":1,"q":1,"f":0,"dnf":6},{"y":2009,"e":17,"s":17,"w":4,"p":8,"q":4,"f":3,"dnf":3},{"y":2010,"e":19,"s":19,"w":5,"p":10,"q":10,"f":3,"dnf":3},{"y":2011,"e":19,"s":19,"w":11,"p":17,"q":15,"f":3,"dnf":1},{"y":2012,"e":20,"s":20,"w":5,"p":10,"q":6,"f":6,"dnf":1},{"y":2013,"e":19,"s":19,"w":13,"p":16,"q":9,"f":7,"dnf":1},{"y":2014,"e":19,"s":19,"w":0,"p":4,"q":0,"f":2,"dnf":3},{"y":2015,"e":19,"s":19,"w":3,"p":13,"q":1,"f":1,"dnf":1},{"y":2016,"e":21,"s":20,"w":0,"p":7,"q":0,"f":3,"dnf":4},{"y":2017,"e":20,"s":20,"w":5,"p":13,"q":4,"f":5,"dnf":2},{"y":2018,"e":21,"s":21,"w":5,"p":12,"q":5,"f":3,"dnf":1},{"y":2019,"e":21,"s":21,"w":1,"p":9,"q":2,"f":2,"dnf":2},{"y":2020,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":2},{"y":2021,"e":22,"s":22,"w":0,"p":1,"q":0,"f":0,"dnf":3},{"y":2022,"e":20,"s":20,"w":0,"p":0,"q":0,"f":0,"dnf":2}]},{"name":"Sergio Pérez","nat":"Mexico","first":2011,"last":2026,"starts":292,"wins":6,"poles":3,"podiums":39,"tier":"Race winner","answer":true,"seasons":[{"y":2011,"e":18,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2012,"e":20,"s":20,"w":0,"p":3,"q":0,"f":1,"dnf":6},{"y":2013,"e":19,"s":19,"w":0,"p":0,"q":0,"f":1,"dnf":0},{"y":2014,"e":19,"s":18,"w":0,"p":1,"q":0,"f":1,"dnf":4},{"y":2015,"e":19,"s":19,"w":0,"p":1,"q":0,"f":0,"dnf":1},{"y":2016,"e":21,"s":21,"w":0,"p":2,"q":0,"f":0,"dnf":0},{"y":2017,"e":20,"s":20,"w":0,"p":0,"q":0,"f":1,"dnf":1},{"y":2018,"e":21,"s":21,"w":0,"p":1,"q":0,"f":0,"dnf":2},{"y":2019,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2020,"e":15,"s":15,"w":1,"p":2,"q":0,"f":0,"dnf":1},{"y":2021,"e":22,"s":22,"w":1,"p":5,"q":0,"f":2,"dnf":2},{"y":2022,"e":22,"s":22,"w":2,"p":11,"q":1,"f":3,"dnf":2},{"y":2023,"e":22,"s":22,"w":2,"p":9,"q":2,"f":2,"dnf":2},{"y":2024,"e":24,"s":24,"w":0,"p":4,"q":0,"f":1,"dnf":4},{"y":2026,"e":11,"s":11,"w":0,"p":0,"q":0,"f":0,"dnf":4}]},{"name":"Felipe Massa","nat":"Brazil","first":2002,"last":2017,"starts":269,"wins":11,"poles":16,"podiums":41,"tier":"Race winner","answer":true,"seasons":[{"y":2002,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":2004,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2005,"e":19,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2006,"e":18,"s":18,"w":2,"p":7,"q":3,"f":2,"dnf":2},{"y":2007,"e":17,"s":17,"w":3,"p":10,"q":6,"f":6,"dnf":2},{"y":2008,"e":18,"s":18,"w":6,"p":10,"q":6,"f":3,"dnf":2},{"y":2009,"e":10,"s":9,"w":0,"p":1,"q":0,"f":1,"dnf":3},{"y":2010,"e":19,"s":19,"w":0,"p":5,"q":0,"f":0,"dnf":1},{"y":2011,"e":19,"s":19,"w":0,"p":0,"q":0,"f":2,"dnf":3},{"y":2012,"e":20,"s":20,"w":0,"p":2,"q":0,"f":0,"dnf":1},{"y":2013,"e":19,"s":19,"w":0,"p":1,"q":0,"f":0,"dnf":2},{"y":2014,"e":19,"s":19,"w":0,"p":3,"q":1,"f":1,"dnf":3},{"y":2015,"e":19,"s":19,"w":0,"p":2,"q":0,"f":0,"dnf":3},{"y":2016,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2017,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":2}]},{"name":"Nico Hülkenberg","nat":"Germany","first":2010,"last":2026,"starts":260,"wins":0,"poles":1,"podiums":1,"tier":"Podium finisher","answer":true,"seasons":[{"y":2010,"e":19,"s":19,"w":0,"p":0,"q":1,"f":0,"dnf":4},{"y":2012,"e":20,"s":20,"w":0,"p":0,"q":0,"f":1,"dnf":2},{"y":2013,"e":19,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2014,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2015,"e":19,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2016,"e":21,"s":21,"w":0,"p":0,"q":0,"f":1,"dnf":4},{"y":2017,"e":20,"s":20,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2018,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2019,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2020,"e":3,"s":2,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":2022,"e":2,"s":2,"w":0,"p":0,"q":0,"f":0,"dnf":0},{"y":2023,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":2024,"e":24,"s":24,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2025,"e":24,"s":23,"w":0,"p":1,"q":0,"f":0,"dnf":4},{"y":2026,"e":11,"s":10,"w":0,"p":0,"q":0,"f":0,"dnf":4}]},{"name":"Daniel Ricciardo","nat":"Australia","first":2011,"last":2024,"starts":257,"wins":8,"poles":3,"podiums":32,"tier":"Race winner","answer":true,"seasons":[{"y":2011,"e":11,"s":11,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2012,"e":20,"s":20,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":2013,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2014,"e":19,"s":19,"w":3,"p":8,"q":0,"f":1,"dnf":3},{"y":2015,"e":19,"s":19,"w":0,"p":2,"q":0,"f":3,"dnf":2},{"y":2016,"e":21,"s":21,"w":1,"p":8,"q":1,"f":4,"dnf":0},{"y":2017,"e":20,"s":20,"w":1,"p":9,"q":0,"f":1,"dnf":6},{"y":2018,"e":21,"s":21,"w":2,"p":2,"q":2,"f":4,"dnf":8},{"y":2019,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2020,"e":17,"s":17,"w":0,"p":2,"q":0,"f":2,"dnf":1},{"y":2021,"e":22,"s":22,"w":1,"p":1,"q":0,"f":1,"dnf":1},{"y":2022,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2023,"e":7,"s":7,"w":0,"p":0,"q":0,"f":0,"dnf":0},{"y":2024,"e":18,"s":18,"w":0,"p":0,"q":0,"f":1,"dnf":2}]},{"name":"Valtteri Bottas","nat":"Finland","first":2013,"last":2026,"starts":257,"wins":10,"poles":20,"podiums":67,"tier":"Race winner","answer":true,"seasons":[{"y":2013,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2014,"e":19,"s":19,"w":0,"p":6,"q":0,"f":1,"dnf":1},{"y":2015,"e":19,"s":18,"w":0,"p":2,"q":0,"f":0,"dnf":2},{"y":2016,"e":21,"s":21,"w":0,"p":1,"q":0,"f":0,"dnf":2},{"y":2017,"e":20,"s":20,"w":3,"p":13,"q":4,"f":2,"dnf":1},{"y":2018,"e":21,"s":21,"w":0,"p":8,"q":2,"f":7,"dnf":1},{"y":2019,"e":21,"s":21,"w":4,"p":15,"q":5,"f":3,"dnf":2},{"y":2020,"e":17,"s":17,"w":2,"p":11,"q":5,"f":2,"dnf":1},{"y":2021,"e":22,"s":22,"w":1,"p":11,"q":4,"f":4,"dnf":4},{"y":2022,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2023,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2024,"e":24,"s":24,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2026,"e":11,"s":11,"w":0,"p":0,"q":0,"f":0,"dnf":5}]},{"name":"Riccardo Patrese","nat":"Italy","first":1977,"last":1993,"starts":256,"wins":6,"poles":8,"podiums":37,"tier":"Race winner","answer":true,"seasons":[{"y":1977,"e":9,"s":9,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":1978,"e":14,"s":14,"w":0,"p":1,"q":0,"f":0,"dnf":7},{"y":1979,"e":15,"s":14,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1980,"e":14,"s":14,"w":0,"p":1,"q":0,"f":0,"dnf":7},{"y":1981,"e":15,"s":15,"w":0,"p":2,"q":1,"f":0,"dnf":9},{"y":1982,"e":15,"s":15,"w":1,"p":3,"q":0,"f":2,"dnf":10},{"y":1983,"e":15,"s":15,"w":1,"p":2,"q":1,"f":1,"dnf":10},{"y":1984,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":10},{"y":1985,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":12},{"y":1986,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":11},{"y":1987,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":9},{"y":1988,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":1989,"e":16,"s":16,"w":0,"p":6,"q":1,"f":1,"dnf":6},{"y":1990,"e":16,"s":16,"w":1,"p":1,"q":0,"f":4,"dnf":4},{"y":1991,"e":16,"s":16,"w":2,"p":8,"q":4,"f":2,"dnf":5},{"y":1992,"e":16,"s":16,"w":1,"p":9,"q":1,"f":3,"dnf":5},{"y":1993,"e":16,"s":16,"w":0,"p":2,"q":0,"f":0,"dnf":6}]},{"name":"Jarno Trulli","nat":"Italy","first":1997,"last":2011,"starts":252,"wins":1,"poles":4,"podiums":11,"tier":"Race winner","answer":true,"seasons":[{"y":1997,"e":14,"s":13,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":1998,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1999,"e":16,"s":15,"w":0,"p":1,"q":0,"f":0,"dnf":8},{"y":2000,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2001,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":2002,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":2003,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":5},{"y":2004,"e":17,"s":17,"w":1,"p":2,"q":2,"f":0,"dnf":3},{"y":2005,"e":19,"s":18,"w":0,"p":3,"q":1,"f":0,"dnf":4},{"y":2006,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2007,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2008,"e":18,"s":18,"w":0,"p":1,"q":0,"f":0,"dnf":3},{"y":2009,"e":17,"s":17,"w":0,"p":3,"q":1,"f":1,"dnf":4},{"y":2010,"e":19,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":2011,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":4}]},{"name":"David Coulthard","nat":"United Kingdom","first":1994,"last":2008,"starts":246,"wins":13,"poles":12,"podiums":62,"tier":"Race winner","answer":true,"seasons":[{"y":1994,"e":8,"s":8,"w":0,"p":1,"q":0,"f":2,"dnf":3},{"y":1995,"e":17,"s":17,"w":1,"p":8,"q":5,"f":2,"dnf":8},{"y":1996,"e":16,"s":16,"w":0,"p":2,"q":0,"f":0,"dnf":7},{"y":1997,"e":17,"s":17,"w":2,"p":4,"q":0,"f":1,"dnf":7},{"y":1998,"e":16,"s":16,"w":1,"p":9,"q":3,"f":3,"dnf":4},{"y":1999,"e":16,"s":16,"w":2,"p":6,"q":0,"f":3,"dnf":7},{"y":2000,"e":17,"s":17,"w":3,"p":11,"q":2,"f":3,"dnf":3},{"y":2001,"e":17,"s":17,"w":2,"p":10,"q":2,"f":3,"dnf":4},{"y":2002,"e":17,"s":17,"w":1,"p":6,"q":0,"f":1,"dnf":4},{"y":2003,"e":16,"s":16,"w":1,"p":3,"q":0,"f":0,"dnf":5},{"y":2004,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2005,"e":19,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2006,"e":18,"s":18,"w":0,"p":1,"q":0,"f":0,"dnf":5},{"y":2007,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2008,"e":18,"s":18,"w":0,"p":1,"q":0,"f":0,"dnf":5}]},{"name":"Max Verstappen","nat":"Netherlands","first":2015,"last":2026,"starts":244,"wins":71,"poles":48,"podiums":131,"tier":"Champion","answer":true,"seasons":[{"y":2015,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2016,"e":21,"s":21,"w":1,"p":7,"q":0,"f":1,"dnf":3},{"y":2017,"e":20,"s":20,"w":2,"p":4,"q":0,"f":1,"dnf":7},{"y":2018,"e":21,"s":21,"w":2,"p":11,"q":0,"f":2,"dnf":3},{"y":2019,"e":21,"s":21,"w":3,"p":9,"q":2,"f":3,"dnf":2},{"y":2020,"e":17,"s":17,"w":2,"p":11,"q":1,"f":3,"dnf":5},{"y":2021,"e":22,"s":22,"w":10,"p":18,"q":10,"f":6,"dnf":2},{"y":2022,"e":22,"s":22,"w":15,"p":17,"q":7,"f":5,"dnf":1},{"y":2023,"e":22,"s":22,"w":19,"p":21,"q":12,"f":9,"dnf":0},{"y":2024,"e":24,"s":24,"w":9,"p":14,"q":8,"f":3,"dnf":1},{"y":2025,"e":24,"s":24,"w":8,"p":15,"q":8,"f":3,"dnf":1},{"y":2026,"e":11,"s":11,"w":0,"p":4,"q":0,"f":1,"dnf":2}]},{"name":"Carlos Sainz Jr.","nat":"Spain","first":2015,"last":2026,"starts":240,"wins":4,"poles":6,"podiums":29,"tier":"Race winner","answer":true,"seasons":[{"y":2015,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2016,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2017,"e":20,"s":20,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":2018,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2019,"e":21,"s":21,"w":0,"p":1,"q":0,"f":0,"dnf":3},{"y":2020,"e":17,"s":16,"w":0,"p":1,"q":0,"f":1,"dnf":3},{"y":2021,"e":22,"s":22,"w":0,"p":4,"q":0,"f":0,"dnf":0},{"y":2022,"e":22,"s":22,"w":1,"p":9,"q":3,"f":2,"dnf":6},{"y":2023,"e":22,"s":21,"w":1,"p":3,"q":2,"f":0,"dnf":2},{"y":2024,"e":23,"s":23,"w":2,"p":9,"q":1,"f":1,"dnf":2},{"y":2025,"e":24,"s":23,"w":0,"p":2,"q":0,"f":0,"dnf":4},{"y":2026,"e":11,"s":11,"w":0,"p":0,"q":0,"f":0,"dnf":1}]},{"name":"Giancarlo Fisichella","nat":"Italy","first":1996,"last":2009,"starts":229,"wins":3,"poles":4,"podiums":19,"tier":"Race winner","answer":true,"seasons":[{"y":1996,"e":8,"s":8,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":1997,"e":17,"s":17,"w":0,"p":2,"q":0,"f":1,"dnf":4},{"y":1998,"e":16,"s":16,"w":0,"p":2,"q":1,"f":0,"dnf":5},{"y":1999,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":2000,"e":17,"s":17,"w":0,"p":3,"q":0,"f":0,"dnf":5},{"y":2001,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":2002,"e":17,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":2003,"e":16,"s":16,"w":1,"p":1,"q":0,"f":0,"dnf":8},{"y":2004,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":2005,"e":19,"s":18,"w":1,"p":3,"q":1,"f":1,"dnf":6},{"y":2006,"e":18,"s":18,"w":1,"p":5,"q":1,"f":0,"dnf":2},{"y":2007,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2008,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2009,"e":17,"s":17,"w":0,"p":1,"q":1,"f":0,"dnf":1}]},{"name":"Mark Webber","nat":"Australia","first":2002,"last":2013,"starts":215,"wins":9,"poles":13,"podiums":42,"tier":"Race winner","answer":true,"seasons":[{"y":2002,"e":17,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2003,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2004,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":2005,"e":19,"s":18,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":2006,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":11},{"y":2007,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":7},{"y":2008,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2009,"e":17,"s":17,"w":2,"p":8,"q":1,"f":3,"dnf":2},{"y":2010,"e":19,"s":19,"w":4,"p":10,"q":5,"f":3,"dnf":2},{"y":2011,"e":19,"s":19,"w":1,"p":10,"q":3,"f":7,"dnf":1},{"y":2012,"e":20,"s":20,"w":2,"p":4,"q":2,"f":1,"dnf":2},{"y":2013,"e":19,"s":19,"w":0,"p":8,"q":2,"f":5,"dnf":3}]},{"name":"Gerhard Berger","nat":"Austria","first":1984,"last":1997,"starts":210,"wins":10,"poles":12,"podiums":48,"tier":"Race winner","answer":true,"seasons":[{"y":1984,"e":4,"s":4,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":1985,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1986,"e":16,"s":16,"w":1,"p":2,"q":0,"f":2,"dnf":8},{"y":1987,"e":16,"s":16,"w":2,"p":3,"q":3,"f":3,"dnf":9},{"y":1988,"e":16,"s":16,"w":1,"p":5,"q":1,"f":3,"dnf":5},{"y":1989,"e":15,"s":15,"w":1,"p":3,"q":0,"f":1,"dnf":12},{"y":1990,"e":16,"s":16,"w":0,"p":7,"q":2,"f":3,"dnf":3},{"y":1991,"e":16,"s":16,"w":1,"p":6,"q":2,"f":2,"dnf":7},{"y":1992,"e":16,"s":16,"w":2,"p":5,"q":0,"f":2,"dnf":6},{"y":1993,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":7},{"y":1994,"e":16,"s":16,"w":1,"p":6,"q":2,"f":0,"dnf":7},{"y":1995,"e":17,"s":17,"w":0,"p":6,"q":1,"f":2,"dnf":7},{"y":1996,"e":16,"s":16,"w":0,"p":2,"q":0,"f":1,"dnf":7},{"y":1997,"e":14,"s":14,"w":1,"p":2,"q":1,"f":2,"dnf":1}]},{"name":"Andrea de Cesaris","nat":"Italy","first":1980,"last":1994,"starts":207,"wins":0,"poles":1,"podiums":5,"tier":"Podium finisher","answer":true,"seasons":[{"y":1980,"e":2,"s":2,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":1981,"e":15,"s":14,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1982,"e":16,"s":16,"w":0,"p":1,"q":1,"f":0,"dnf":10},{"y":1983,"e":15,"s":14,"w":0,"p":2,"q":0,"f":1,"dnf":10},{"y":1984,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1985,"e":11,"s":10,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":1986,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":14},{"y":1987,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":14},{"y":1988,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":11},{"y":1989,"e":16,"s":15,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":1990,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":13},{"y":1991,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":1992,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":1993,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1994,"e":11,"s":11,"w":0,"p":0,"q":0,"f":0,"dnf":9}]},{"name":"Nico Rosberg","nat":"Germany","first":2006,"last":2016,"starts":206,"wins":23,"poles":30,"podiums":57,"tier":"Champion","answer":true,"seasons":[{"y":2006,"e":18,"s":18,"w":0,"p":0,"q":0,"f":1,"dnf":9},{"y":2007,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2008,"e":18,"s":18,"w":0,"p":2,"q":0,"f":0,"dnf":2},{"y":2009,"e":17,"s":17,"w":0,"p":0,"q":0,"f":1,"dnf":1},{"y":2010,"e":19,"s":19,"w":0,"p":3,"q":0,"f":0,"dnf":2},{"y":2011,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2012,"e":20,"s":20,"w":1,"p":2,"q":1,"f":2,"dnf":3},{"y":2013,"e":19,"s":19,"w":2,"p":4,"q":3,"f":0,"dnf":2},{"y":2014,"e":19,"s":19,"w":5,"p":15,"q":11,"f":5,"dnf":2},{"y":2015,"e":19,"s":19,"w":6,"p":15,"q":7,"f":5,"dnf":1},{"y":2016,"e":21,"s":21,"w":9,"p":16,"q":8,"f":6,"dnf":1}]},{"name":"Nelson Piquet","nat":"Brazil","first":1978,"last":1991,"starts":203,"wins":23,"poles":24,"podiums":60,"tier":"Champion","answer":true,"seasons":[{"y":1978,"e":5,"s":5,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":1979,"e":15,"s":15,"w":0,"p":0,"q":0,"f":1,"dnf":9},{"y":1980,"e":14,"s":14,"w":3,"p":6,"q":2,"f":1,"dnf":4},{"y":1981,"e":15,"s":15,"w":3,"p":7,"q":4,"f":1,"dnf":4},{"y":1982,"e":15,"s":14,"w":1,"p":2,"q":1,"f":2,"dnf":10},{"y":1983,"e":15,"s":15,"w":3,"p":8,"q":1,"f":4,"dnf":4},{"y":1984,"e":16,"s":16,"w":2,"p":4,"q":9,"f":3,"dnf":9},{"y":1985,"e":16,"s":15,"w":1,"p":2,"q":1,"f":0,"dnf":9},{"y":1986,"e":16,"s":16,"w":4,"p":10,"q":2,"f":7,"dnf":4},{"y":1987,"e":16,"s":15,"w":3,"p":11,"q":4,"f":4,"dnf":3},{"y":1988,"e":16,"s":16,"w":0,"p":3,"q":0,"f":0,"dnf":7},{"y":1989,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1990,"e":16,"s":16,"w":2,"p":4,"q":0,"f":0,"dnf":3},{"y":1991,"e":16,"s":16,"w":1,"p":3,"q":0,"f":0,"dnf":5}]},{"name":"Jean Alesi","nat":"France","first":1989,"last":2001,"starts":201,"wins":1,"poles":2,"podiums":32,"tier":"Race winner","answer":true,"seasons":[{"y":1989,"e":8,"s":8,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":1990,"e":16,"s":15,"w":0,"p":2,"q":0,"f":0,"dnf":6},{"y":1991,"e":16,"s":16,"w":0,"p":3,"q":0,"f":1,"dnf":8},{"y":1992,"e":16,"s":16,"w":0,"p":2,"q":0,"f":0,"dnf":10},{"y":1993,"e":16,"s":16,"w":0,"p":2,"q":0,"f":0,"dnf":9},{"y":1994,"e":14,"s":14,"w":0,"p":4,"q":1,"f":0,"dnf":6},{"y":1995,"e":17,"s":17,"w":1,"p":5,"q":0,"f":1,"dnf":8},{"y":1996,"e":16,"s":16,"w":0,"p":8,"q":0,"f":2,"dnf":5},{"y":1997,"e":17,"s":17,"w":0,"p":5,"q":1,"f":0,"dnf":3},{"y":1998,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":4},{"y":1999,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":2000,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":12},{"y":2001,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":1}]},{"name":"Lance Stroll","nat":"Canada","first":2017,"last":2026,"starts":200,"wins":0,"poles":1,"podiums":3,"tier":"Podium finisher","answer":true,"seasons":[{"y":2017,"e":20,"s":20,"w":0,"p":1,"q":0,"f":0,"dnf":4},{"y":2018,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2019,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2020,"e":16,"s":16,"w":0,"p":2,"q":1,"f":0,"dnf":5},{"y":2021,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2022,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2023,"e":22,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2024,"e":24,"s":23,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2025,"e":24,"s":23,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2026,"e":11,"s":11,"w":0,"p":0,"q":0,"f":0,"dnf":7}]},{"name":"Alain Prost","nat":"France","first":1980,"last":1993,"starts":199,"wins":51,"poles":33,"podiums":106,"tier":"Champion","answer":true,"seasons":[{"y":1980,"e":13,"s":11,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":1981,"e":15,"s":15,"w":3,"p":6,"q":2,"f":1,"dnf":9},{"y":1982,"e":16,"s":16,"w":2,"p":4,"q":5,"f":4,"dnf":8},{"y":1983,"e":15,"s":15,"w":4,"p":7,"q":3,"f":3,"dnf":3},{"y":1984,"e":16,"s":16,"w":7,"p":9,"q":3,"f":3,"dnf":5},{"y":1985,"e":16,"s":16,"w":5,"p":11,"q":2,"f":5,"dnf":4},{"y":1986,"e":16,"s":16,"w":4,"p":11,"q":1,"f":2,"dnf":3},{"y":1987,"e":16,"s":16,"w":3,"p":7,"q":0,"f":2,"dnf":5},{"y":1988,"e":16,"s":16,"w":7,"p":14,"q":2,"f":7,"dnf":2},{"y":1989,"e":16,"s":16,"w":4,"p":11,"q":2,"f":5,"dnf":3},{"y":1990,"e":16,"s":16,"w":5,"p":9,"q":0,"f":2,"dnf":4},{"y":1991,"e":15,"s":14,"w":0,"p":5,"q":0,"f":1,"dnf":7},{"y":1993,"e":16,"s":16,"w":7,"p":12,"q":13,"f":6,"dnf":1}]},{"name":"Michele Alboreto","nat":"Italy","first":1981,"last":1994,"starts":194,"wins":5,"poles":2,"podiums":23,"tier":"Race winner","answer":true,"seasons":[{"y":1981,"e":12,"s":10,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":1982,"e":16,"s":16,"w":1,"p":2,"q":0,"f":1,"dnf":5},{"y":1983,"e":15,"s":15,"w":1,"p":1,"q":0,"f":0,"dnf":8},{"y":1984,"e":16,"s":16,"w":1,"p":4,"q":1,"f":0,"dnf":8},{"y":1985,"e":16,"s":16,"w":2,"p":8,"q":1,"f":2,"dnf":6},{"y":1986,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":10},{"y":1987,"e":16,"s":16,"w":0,"p":3,"q":0,"f":0,"dnf":10},{"y":1988,"e":16,"s":16,"w":0,"p":3,"q":0,"f":1,"dnf":6},{"y":1989,"e":14,"s":10,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":1990,"e":16,"s":13,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":1991,"e":16,"s":9,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1992,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":1993,"e":14,"s":9,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":1994,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":10}]},{"name":"Esteban Ocon","nat":"France","first":2016,"last":2026,"starts":191,"wins":1,"poles":0,"podiums":4,"tier":"Race winner","answer":true,"seasons":[{"y":2016,"e":9,"s":9,"w":0,"p":0,"q":0,"f":0,"dnf":0},{"y":2017,"e":20,"s":20,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":2018,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2020,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":4},{"y":2021,"e":22,"s":22,"w":1,"p":1,"q":0,"f":0,"dnf":3},{"y":2022,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2023,"e":22,"s":22,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":2024,"e":23,"s":23,"w":0,"p":1,"q":0,"f":1,"dnf":2},{"y":2025,"e":24,"s":24,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":2026,"e":11,"s":11,"w":0,"p":0,"q":0,"f":0,"dnf":0}]},{"name":"Pierre Gasly","nat":"France","first":2017,"last":2026,"starts":188,"wins":1,"poles":0,"podiums":6,"tier":"Race winner","answer":true,"seasons":[{"y":2017,"e":5,"s":5,"w":0,"p":0,"q":0,"f":0,"dnf":0},{"y":2018,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2019,"e":21,"s":21,"w":0,"p":1,"q":0,"f":2,"dnf":1},{"y":2020,"e":17,"s":17,"w":1,"p":1,"q":0,"f":0,"dnf":3},{"y":2021,"e":22,"s":22,"w":0,"p":1,"q":0,"f":1,"dnf":3},{"y":2022,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2023,"e":22,"s":22,"w":0,"p":1,"q":0,"f":0,"dnf":1},{"y":2024,"e":24,"s":23,"w":0,"p":1,"q":0,"f":0,"dnf":4},{"y":2025,"e":24,"s":24,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2026,"e":11,"s":11,"w":0,"p":1,"q":0,"f":0,"dnf":1}]},{"name":"Nigel Mansell","nat":"United Kingdom","first":1980,"last":1995,"starts":187,"wins":31,"poles":32,"podiums":59,"tier":"Champion","answer":true,"seasons":[{"y":1980,"e":3,"s":2,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":1981,"e":14,"s":13,"w":0,"p":1,"q":0,"f":0,"dnf":8},{"y":1982,"e":13,"s":13,"w":0,"p":1,"q":0,"f":0,"dnf":7},{"y":1983,"e":15,"s":15,"w":0,"p":1,"q":0,"f":1,"dnf":7},{"y":1984,"e":16,"s":16,"w":0,"p":2,"q":1,"f":0,"dnf":11},{"y":1985,"e":16,"s":15,"w":2,"p":3,"q":1,"f":1,"dnf":6},{"y":1986,"e":16,"s":16,"w":5,"p":9,"q":2,"f":4,"dnf":4},{"y":1987,"e":15,"s":14,"w":6,"p":7,"q":8,"f":3,"dnf":5},{"y":1988,"e":14,"s":14,"w":0,"p":2,"q":0,"f":1,"dnf":12},{"y":1989,"e":15,"s":15,"w":2,"p":6,"q":0,"f":3,"dnf":9},{"y":1990,"e":16,"s":16,"w":1,"p":5,"q":3,"f":3,"dnf":7},{"y":1991,"e":16,"s":16,"w":5,"p":9,"q":2,"f":6,"dnf":6},{"y":1992,"e":16,"s":16,"w":9,"p":12,"q":14,"f":8,"dnf":4},{"y":1994,"e":4,"s":4,"w":1,"p":1,"q":1,"f":0,"dnf":2},{"y":1995,"e":2,"s":2,"w":0,"p":0,"q":0,"f":0,"dnf":1}]},{"name":"Kevin Magnussen","nat":"Denmark","first":2014,"last":2024,"starts":185,"wins":0,"poles":1,"podiums":1,"tier":"Podium finisher","answer":true,"seasons":[{"y":2014,"e":19,"s":19,"w":0,"p":1,"q":0,"f":0,"dnf":1},{"y":2015,"e":1,"s":0,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":2016,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2017,"e":20,"s":20,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2018,"e":21,"s":21,"w":0,"p":0,"q":0,"f":1,"dnf":3},{"y":2019,"e":21,"s":21,"w":0,"p":0,"q":0,"f":1,"dnf":2},{"y":2020,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2022,"e":22,"s":22,"w":0,"p":0,"q":1,"f":0,"dnf":4},{"y":2023,"e":22,"s":22,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2024,"e":22,"s":22,"w":0,"p":0,"q":0,"f":1,"dnf":1}]},{"name":"Nick Heidfeld","nat":"Germany","first":2000,"last":2011,"starts":183,"wins":0,"poles":1,"podiums":13,"tier":"Podium finisher","answer":true,"seasons":[{"y":2000,"e":17,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":11},{"y":2001,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":2002,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2003,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2004,"e":18,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2005,"e":14,"s":13,"w":0,"p":3,"q":1,"f":0,"dnf":5},{"y":2006,"e":18,"s":18,"w":0,"p":1,"q":0,"f":0,"dnf":3},{"y":2007,"e":17,"s":17,"w":0,"p":2,"q":0,"f":0,"dnf":2},{"y":2008,"e":18,"s":18,"w":0,"p":4,"q":0,"f":2,"dnf":0},{"y":2009,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":2},{"y":2010,"e":5,"s":5,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":2011,"e":11,"s":11,"w":0,"p":1,"q":0,"f":0,"dnf":3}]},{"name":"Charles Leclerc","nat":"Monaco","first":2018,"last":2026,"starts":182,"wins":9,"poles":27,"podiums":54,"tier":"Race winner","answer":true,"seasons":[{"y":2018,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2019,"e":21,"s":21,"w":2,"p":10,"q":7,"f":4,"dnf":2},{"y":2020,"e":17,"s":17,"w":0,"p":2,"q":0,"f":0,"dnf":4},{"y":2021,"e":22,"s":21,"w":0,"p":1,"q":2,"f":0,"dnf":2},{"y":2022,"e":22,"s":22,"w":3,"p":11,"q":9,"f":3,"dnf":3},{"y":2023,"e":22,"s":21,"w":0,"p":6,"q":5,"f":0,"dnf":5},{"y":2024,"e":24,"s":24,"w":3,"p":13,"q":3,"f":3,"dnf":1},{"y":2025,"e":24,"s":24,"w":0,"p":7,"q":1,"f":1,"dnf":3},{"y":2026,"e":11,"s":11,"w":1,"p":4,"q":0,"f":1,"dnf":1}]},{"name":"Ralf Schumacher","nat":"Germany","first":1997,"last":2007,"starts":180,"wins":6,"poles":6,"podiums":27,"tier":"Race winner","answer":true,"seasons":[{"y":1997,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":10},{"y":1998,"e":16,"s":16,"w":0,"p":2,"q":0,"f":0,"dnf":7},{"y":1999,"e":16,"s":16,"w":0,"p":3,"q":0,"f":1,"dnf":4},{"y":2000,"e":17,"s":17,"w":0,"p":3,"q":0,"f":0,"dnf":7},{"y":2001,"e":17,"s":17,"w":3,"p":5,"q":1,"f":5,"dnf":7},{"y":2002,"e":17,"s":17,"w":1,"p":6,"q":0,"f":0,"dnf":2},{"y":2003,"e":15,"s":15,"w":2,"p":3,"q":3,"f":1,"dnf":2},{"y":2004,"e":12,"s":12,"w":0,"p":1,"q":1,"f":0,"dnf":5},{"y":2005,"e":18,"s":18,"w":0,"p":2,"q":1,"f":1,"dnf":1},{"y":2006,"e":18,"s":18,"w":0,"p":1,"q":0,"f":0,"dnf":7},{"y":2007,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":6}]},{"name":"Romain Grosjean","nat":"France","first":2009,"last":2020,"starts":179,"wins":0,"poles":0,"podiums":10,"tier":"Podium finisher","answer":true,"seasons":[{"y":2009,"e":7,"s":7,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2012,"e":19,"s":19,"w":0,"p":3,"q":0,"f":1,"dnf":7},{"y":2013,"e":19,"s":19,"w":0,"p":6,"q":0,"f":0,"dnf":4},{"y":2014,"e":19,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2015,"e":19,"s":19,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":2016,"e":21,"s":19,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2017,"e":20,"s":20,"w":0,"p":0,"q":0,"f":0,"dnf":3},{"y":2018,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2019,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2020,"e":15,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":3}]},{"name":"Jacques Laffite","nat":"France","first":1974,"last":1986,"starts":176,"wins":6,"poles":7,"podiums":32,"tier":"Race winner","answer":true,"seasons":[{"y":1974,"e":5,"s":5,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":1975,"e":12,"s":10,"w":0,"p":1,"q":0,"f":0,"dnf":8},{"y":1976,"e":16,"s":16,"w":0,"p":3,"q":1,"f":1,"dnf":7},{"y":1977,"e":17,"s":17,"w":1,"p":2,"q":0,"f":1,"dnf":7},{"y":1978,"e":16,"s":16,"w":0,"p":2,"q":0,"f":0,"dnf":2},{"y":1979,"e":15,"s":15,"w":2,"p":6,"q":4,"f":2,"dnf":8},{"y":1980,"e":14,"s":14,"w":1,"p":5,"q":1,"f":1,"dnf":4},{"y":1981,"e":15,"s":15,"w":2,"p":7,"q":1,"f":1,"dnf":6},{"y":1982,"e":15,"s":15,"w":0,"p":1,"q":0,"f":0,"dnf":11},{"y":1983,"e":15,"s":13,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":1984,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":11},{"y":1985,"e":15,"s":15,"w":0,"p":3,"q":0,"f":1,"dnf":7},{"y":1986,"e":9,"s":9,"w":0,"p":2,"q":0,"f":0,"dnf":3}]},{"name":"Niki Lauda","nat":"Austria","first":1971,"last":1985,"starts":171,"wins":25,"poles":24,"podiums":54,"tier":"Champion","answer":true,"seasons":[{"y":1971,"e":1,"s":1,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":1972,"e":12,"s":12,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":1973,"e":15,"s":14,"w":0,"p":0,"q":0,"f":0,"dnf":10},{"y":1974,"e":15,"s":15,"w":2,"p":5,"q":9,"f":3,"dnf":8},{"y":1975,"e":14,"s":14,"w":5,"p":8,"q":9,"f":2,"dnf":1},{"y":1976,"e":14,"s":14,"w":5,"p":9,"q":3,"f":4,"dnf":3},{"y":1977,"e":15,"s":14,"w":3,"p":10,"q":2,"f":3,"dnf":3},{"y":1978,"e":16,"s":16,"w":2,"p":7,"q":1,"f":4,"dnf":9},{"y":1979,"e":13,"s":13,"w":0,"p":0,"q":0,"f":0,"dnf":11},{"y":1982,"e":15,"s":14,"w":2,"p":3,"q":0,"f":1,"dnf":8},{"y":1983,"e":15,"s":14,"w":0,"p":2,"q":0,"f":1,"dnf":9},{"y":1984,"e":16,"s":16,"w":5,"p":9,"q":0,"f":5,"dnf":6},{"y":1985,"e":15,"s":14,"w":1,"p":1,"q":0,"f":1,"dnf":12}]},{"name":"George Russell","nat":"United Kingdom","first":2019,"last":2026,"starts":163,"wins":7,"poles":11,"podiums":29,"tier":"Race winner","answer":true,"seasons":[{"y":2019,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":2020,"e":17,"s":17,"w":0,"p":0,"q":0,"f":1,"dnf":4},{"y":2021,"e":22,"s":22,"w":0,"p":1,"q":0,"f":0,"dnf":4},{"y":2022,"e":22,"s":22,"w":1,"p":8,"q":1,"f":4,"dnf":1},{"y":2023,"e":22,"s":22,"w":0,"p":2,"q":0,"f":1,"dnf":3},{"y":2024,"e":24,"s":24,"w":2,"p":4,"q":4,"f":2,"dnf":2},{"y":2025,"e":24,"s":24,"w":2,"p":9,"q":2,"f":3,"dnf":0},{"y":2026,"e":11,"s":11,"w":2,"p":5,"q":4,"f":0,"dnf":2}]},{"name":"Jacques Villeneuve","nat":"Canada","first":1996,"last":2006,"starts":163,"wins":11,"poles":13,"podiums":23,"tier":"Champion","answer":true,"seasons":[{"y":1996,"e":16,"s":16,"w":4,"p":11,"q":3,"f":6,"dnf":3},{"y":1997,"e":17,"s":17,"w":7,"p":8,"q":10,"f":3,"dnf":6},{"y":1998,"e":16,"s":16,"w":0,"p":2,"q":0,"f":0,"dnf":3},{"y":1999,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":12},{"y":2000,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2001,"e":17,"s":17,"w":0,"p":2,"q":0,"f":0,"dnf":6},{"y":2002,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":2003,"e":15,"s":14,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":2004,"e":3,"s":3,"w":0,"p":0,"q":0,"f":0,"dnf":0},{"y":2005,"e":19,"s":18,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2006,"e":12,"s":12,"w":0,"p":0,"q":0,"f":0,"dnf":4}]},{"name":"Thierry Boutsen","nat":"Belgium","first":1983,"last":1993,"starts":163,"wins":3,"poles":1,"podiums":15,"tier":"Race winner","answer":true,"seasons":[{"y":1983,"e":10,"s":10,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":1984,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1985,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":4},{"y":1986,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":10},{"y":1987,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":7},{"y":1988,"e":16,"s":16,"w":0,"p":5,"q":0,"f":0,"dnf":3},{"y":1989,"e":16,"s":16,"w":2,"p":5,"q":0,"f":0,"dnf":6},{"y":1990,"e":16,"s":16,"w":1,"p":3,"q":1,"f":1,"dnf":6},{"y":1991,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":1992,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1993,"e":10,"s":10,"w":0,"p":0,"q":0,"f":0,"dnf":5}]},{"name":"Lando Norris","nat":"United Kingdom","first":2019,"last":2026,"starts":162,"wins":12,"poles":17,"podiums":47,"tier":"Champion","answer":true,"seasons":[{"y":2019,"e":21,"s":21,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":2020,"e":17,"s":17,"w":0,"p":1,"q":0,"f":2,"dnf":1},{"y":2021,"e":22,"s":22,"w":0,"p":4,"q":1,"f":1,"dnf":1},{"y":2022,"e":22,"s":22,"w":0,"p":1,"q":0,"f":2,"dnf":2},{"y":2023,"e":22,"s":22,"w":0,"p":7,"q":0,"f":1,"dnf":1},{"y":2024,"e":24,"s":24,"w":4,"p":13,"q":8,"f":6,"dnf":0},{"y":2025,"e":24,"s":24,"w":7,"p":18,"q":7,"f":6,"dnf":1},{"y":2026,"e":11,"s":10,"w":1,"p":3,"q":1,"f":2,"dnf":3}]},{"name":"Ayrton Senna","nat":"Brazil","first":1984,"last":1994,"starts":161,"wins":41,"poles":65,"podiums":80,"tier":"Champion","answer":true,"seasons":[{"y":1984,"e":15,"s":14,"w":0,"p":3,"q":0,"f":1,"dnf":8},{"y":1985,"e":16,"s":16,"w":2,"p":6,"q":7,"f":3,"dnf":7},{"y":1986,"e":16,"s":16,"w":2,"p":8,"q":8,"f":0,"dnf":6},{"y":1987,"e":16,"s":16,"w":2,"p":8,"q":1,"f":3,"dnf":4},{"y":1988,"e":16,"s":16,"w":8,"p":11,"q":13,"f":3,"dnf":2},{"y":1989,"e":16,"s":16,"w":6,"p":7,"q":13,"f":3,"dnf":7},{"y":1990,"e":16,"s":16,"w":6,"p":11,"q":10,"f":2,"dnf":4},{"y":1991,"e":16,"s":16,"w":7,"p":12,"q":8,"f":2,"dnf":1},{"y":1992,"e":16,"s":16,"w":3,"p":7,"q":1,"f":1,"dnf":7},{"y":1993,"e":16,"s":16,"w":5,"p":7,"q":1,"f":1,"dnf":4},{"y":1994,"e":3,"s":3,"w":0,"p":0,"q":3,"f":0,"dnf":3}]},{"name":"Mika Häkkinen","nat":"Finland","first":1991,"last":2001,"starts":161,"wins":20,"poles":26,"podiums":51,"tier":"Champion","answer":true,"seasons":[{"y":1991,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1992,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":1993,"e":3,"s":3,"w":0,"p":1,"q":0,"f":0,"dnf":2},{"y":1994,"e":15,"s":15,"w":0,"p":6,"q":0,"f":0,"dnf":7},{"y":1995,"e":16,"s":15,"w":0,"p":2,"q":0,"f":0,"dnf":10},{"y":1996,"e":16,"s":16,"w":0,"p":4,"q":0,"f":0,"dnf":3},{"y":1997,"e":17,"s":17,"w":1,"p":3,"q":1,"f":1,"dnf":8},{"y":1998,"e":16,"s":16,"w":8,"p":11,"q":9,"f":6,"dnf":3},{"y":1999,"e":16,"s":16,"w":5,"p":10,"q":11,"f":6,"dnf":5},{"y":2000,"e":17,"s":17,"w":4,"p":11,"q":5,"f":9,"dnf":3},{"y":2001,"e":17,"s":16,"w":2,"p":3,"q":0,"f":3,"dnf":7}]},{"name":"Johnny Herbert","nat":"United Kingdom","first":1989,"last":2000,"starts":160,"wins":3,"poles":0,"podiums":7,"tier":"Race winner","answer":true,"seasons":[{"y":1989,"e":8,"s":6,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":1990,"e":2,"s":2,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":1991,"e":8,"s":7,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":1992,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":11},{"y":1993,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":1994,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1995,"e":17,"s":17,"w":2,"p":4,"q":0,"f":0,"dnf":4},{"y":1996,"e":16,"s":15,"w":0,"p":1,"q":0,"f":0,"dnf":8},{"y":1997,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":1998,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":1999,"e":16,"s":15,"w":1,"p":1,"q":0,"f":0,"dnf":7},{"y":2000,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":8}]},{"name":"Martin Brundle","nat":"United Kingdom","first":1984,"last":1996,"starts":160,"wins":0,"poles":0,"podiums":9,"tier":"Podium finisher","answer":true,"seasons":[{"y":1984,"e":9,"s":9,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1985,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":1986,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1987,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":13},{"y":1988,"e":1,"s":1,"w":0,"p":0,"q":0,"f":0,"dnf":0},{"y":1989,"e":16,"s":14,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1991,"e":16,"s":14,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":1992,"e":16,"s":16,"w":0,"p":5,"q":0,"f":0,"dnf":5},{"y":1993,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":5},{"y":1994,"e":16,"s":16,"w":0,"p":2,"q":0,"f":0,"dnf":9},{"y":1995,"e":11,"s":11,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":1996,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":7}]},{"name":"Olivier Panis","nat":"France","first":1994,"last":2004,"starts":157,"wins":1,"poles":0,"podiums":5,"tier":"Race winner","answer":true,"seasons":[{"y":1994,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":2},{"y":1995,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":6},{"y":1996,"e":16,"s":16,"w":1,"p":1,"q":0,"f":0,"dnf":7},{"y":1997,"e":10,"s":10,"w":0,"p":2,"q":0,"f":0,"dnf":2},{"y":1998,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1999,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2001,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2002,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":10},{"y":2003,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":2004,"e":17,"s":17,"w":0,"p":0,"q":0,"f":0,"dnf":4}]},{"name":"Heinz-Harald Frentzen","nat":"Germany","first":1994,"last":2003,"starts":156,"wins":3,"poles":2,"podiums":18,"tier":"Race winner","answer":true,"seasons":[{"y":1994,"e":16,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1995,"e":17,"s":17,"w":0,"p":1,"q":0,"f":0,"dnf":5},{"y":1996,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1997,"e":17,"s":17,"w":1,"p":7,"q":1,"f":6,"dnf":5},{"y":1998,"e":16,"s":16,"w":0,"p":1,"q":0,"f":0,"dnf":4},{"y":1999,"e":16,"s":16,"w":2,"p":6,"q":1,"f":0,"dnf":3},{"y":2000,"e":17,"s":17,"w":0,"p":2,"q":0,"f":0,"dnf":9},{"y":2001,"e":15,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":2002,"e":13,"s":12,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":2003,"e":16,"s":15,"w":0,"p":1,"q":0,"f":0,"dnf":7}]},{"name":"John Watson","nat":"United Kingdom","first":1973,"last":1985,"starts":152,"wins":5,"poles":2,"podiums":20,"tier":"Race winner","answer":true,"seasons":[{"y":1973,"e":2,"s":2,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":1974,"e":15,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":4},{"y":1975,"e":13,"s":13,"w":0,"p":0,"q":0,"f":0,"dnf":5},{"y":1976,"e":16,"s":16,"w":1,"p":3,"q":0,"f":0,"dnf":6},{"y":1977,"e":17,"s":17,"w":0,"p":1,"q":1,"f":2,"dnf":12},{"y":1978,"e":16,"s":16,"w":0,"p":3,"q":1,"f":0,"dnf":6},{"y":1979,"e":15,"s":15,"w":0,"p":1,"q":0,"f":0,"dnf":5},{"y":1980,"e":14,"s":13,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1981,"e":15,"s":15,"w":1,"p":4,"q":0,"f":1,"dnf":5},{"y":1982,"e":15,"s":15,"w":2,"p":5,"q":0,"f":1,"dnf":5},{"y":1983,"e":15,"s":14,"w":1,"p":3,"q":0,"f":1,"dnf":6},{"y":1985,"e":1,"s":1,"w":0,"p":0,"q":0,"f":0,"dnf":0}]},{"name":"René Arnoux","nat":"France","first":1978,"last":1989,"starts":149,"wins":7,"poles":18,"podiums":22,"tier":"Race winner","answer":true,"seasons":[{"y":1978,"e":9,"s":6,"w":0,"p":0,"q":0,"f":0,"dnf":2},{"y":1979,"e":15,"s":14,"w":0,"p":3,"q":2,"f":2,"dnf":10},{"y":1980,"e":14,"s":14,"w":2,"p":3,"q":3,"f":4,"dnf":5},{"y":1981,"e":15,"s":14,"w":0,"p":1,"q":4,"f":1,"dnf":6},{"y":1982,"e":16,"s":16,"w":2,"p":4,"q":5,"f":1,"dnf":10},{"y":1983,"e":15,"s":15,"w":3,"p":7,"q":4,"f":2,"dnf":4},{"y":1984,"e":16,"s":16,"w":0,"p":4,"q":0,"f":2,"dnf":4},{"y":1985,"e":1,"s":1,"w":0,"p":0,"q":0,"f":0,"dnf":0},{"y":1986,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":1987,"e":15,"s":14,"w":0,"p":0,"q":0,"f":0,"dnf":10},{"y":1988,"e":16,"s":14,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":1989,"e":16,"s":9,"w":0,"p":0,"q":0,"f":0,"dnf":3}]},{"name":"Derek Warwick","nat":"United Kingdom","first":1981,"last":1993,"starts":147,"wins":0,"poles":0,"podiums":4,"tier":"Podium finisher","answer":true,"seasons":[{"y":1981,"e":12,"s":1,"w":0,"p":0,"q":0,"f":0,"dnf":1},{"y":1982,"e":14,"s":11,"w":0,"p":0,"q":0,"f":1,"dnf":9},{"y":1983,"e":15,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1984,"e":16,"s":16,"w":0,"p":4,"q":0,"f":1,"dnf":10},{"y":1985,"e":15,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":8},{"y":1986,"e":11,"s":10,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1987,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":10},{"y":1988,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":6},{"y":1989,"e":15,"s":15,"w":0,"p":0,"q":0,"f":0,"dnf":7},{"y":1990,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":9},{"y":1993,"e":16,"s":16,"w":0,"p":0,"q":0,"f":0,"dnf":5}]},{"name":"Graham Hill","nat":"United Kingdom","first":1958,"last":1975,"starts":176,"wins":14,"poles":13,"podiums":36,"tier":"Champion","answer":true},{"name":"Eddie Irvine","nat":"United Kingdom","first":1993,"last":2002,"starts":147,"wins":4,"poles":0,"podiums":26,"tier":"Race winner","answer":true},{"name":"Carlos Reutemann","nat":"Argentina","first":1972,"last":1982,"starts":146,"wins":12,"poles":6,"podiums":45,"tier":"Race winner","answer":true},{"name":"Emerson Fittipaldi","nat":"Brazil","first":1970,"last":1980,"starts":144,"wins":14,"poles":6,"podiums":35,"tier":"Champion","answer":true},{"name":"Alexander Albon","nat":"Thailand","first":2019,"last":2026,"starts":138,"wins":0,"poles":0,"podiums":2,"tier":"Podium finisher","answer":true},{"name":"Jean-Pierre Jarier","nat":"France","first":1971,"last":1983,"starts":135,"wins":0,"poles":3,"podiums":3,"tier":"Podium finisher","answer":true},{"name":"Clay Regazzoni","nat":"Switzerland","first":1970,"last":1980,"starts":132,"wins":5,"poles":5,"podiums":28,"tier":"Race winner","answer":true},{"name":"Eddie Cheever","nat":"United States","first":1978,"last":1989,"starts":132,"wins":0,"poles":0,"podiums":9,"tier":"Podium finisher","answer":true},{"name":"Adrian Sutil","nat":"Germany","first":2007,"last":2014,"starts":128,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Mario Andretti","nat":"United States","first":1968,"last":1982,"starts":128,"wins":12,"poles":18,"podiums":19,"tier":"Champion","answer":true},{"name":"Jack Brabham","nat":"Australia","first":1955,"last":1970,"starts":126,"wins":14,"poles":13,"podiums":31,"tier":"Champion","answer":true},{"name":"Ronnie Peterson","nat":"Sweden","first":1970,"last":1978,"starts":123,"wins":10,"poles":14,"podiums":26,"tier":"Race winner","answer":true},{"name":"Pierluigi Martini","nat":"Italy","first":1984,"last":1995,"starts":117,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Alan Jones","nat":"Australia","first":1975,"last":1986,"starts":116,"wins":12,"poles":6,"podiums":24,"tier":"Champion","answer":true},{"name":"Jacky Ickx","nat":"Belgium","first":1966,"last":1979,"starts":116,"wins":8,"poles":13,"podiums":25,"tier":"Race winner","answer":true},{"name":"Damon Hill","nat":"United Kingdom","first":1992,"last":1999,"starts":115,"wins":22,"poles":20,"podiums":42,"tier":"Champion","answer":true},{"name":"Keke Rosberg","nat":"Finland","first":1978,"last":1986,"starts":114,"wins":5,"poles":5,"podiums":17,"tier":"Champion","answer":true},{"name":"Patrick Tambay","nat":"France","first":1977,"last":1986,"starts":113,"wins":2,"poles":5,"podiums":11,"tier":"Race winner","answer":true},{"name":"Denny Hulme","nat":"New Zealand","first":1965,"last":1974,"starts":112,"wins":8,"poles":1,"podiums":33,"tier":"Champion","answer":true},{"name":"Jody Scheckter","nat":"South Africa","first":1972,"last":1980,"starts":112,"wins":10,"poles":3,"podiums":33,"tier":"Champion","answer":true},{"name":"Heikki Kovalainen","nat":"Finland","first":2007,"last":2013,"starts":111,"wins":1,"poles":1,"podiums":4,"tier":"Race winner","answer":true},{"name":"John Surtees","nat":"United Kingdom","first":1960,"last":1972,"starts":111,"wins":6,"poles":8,"podiums":24,"tier":"Champion","answer":true},{"name":"Yuki Tsunoda","nat":"Japan","first":2021,"last":2025,"starts":111,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Daniil Kvyat","nat":"Russia","first":2014,"last":2020,"starts":110,"wins":0,"poles":0,"podiums":3,"tier":"Podium finisher","answer":true},{"name":"Philippe Alliot","nat":"France","first":1984,"last":1994,"starts":110,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Mika Salo","nat":"Finland","first":1994,"last":2002,"starts":109,"wins":0,"poles":0,"podiums":2,"tier":"Podium finisher","answer":true},{"name":"Elio de Angelis","nat":"Italy","first":1979,"last":1986,"starts":108,"wins":2,"poles":3,"podiums":9,"tier":"Race winner","answer":true},{"name":"Jos Verstappen","nat":"Netherlands","first":1994,"last":2003,"starts":106,"wins":0,"poles":0,"podiums":2,"tier":"Podium finisher","answer":true},{"name":"Jochen Mass","nat":"Germany","first":1973,"last":1982,"starts":105,"wins":1,"poles":0,"podiums":8,"tier":"Race winner","answer":true},{"name":"Jo Bonnier","nat":"Sweden","first":1956,"last":1971,"starts":104,"wins":1,"poles":1,"podiums":1,"tier":"Race winner","answer":true},{"name":"Pedro de la Rosa","nat":"Spain","first":1999,"last":2012,"starts":104,"wins":0,"poles":0,"podiums":1,"tier":"Podium finisher","answer":true},{"name":"Bruce McLaren","nat":"New Zealand","first":1958,"last":1970,"starts":100,"wins":4,"poles":0,"podiums":27,"tier":"Race winner","answer":true},{"name":"Jackie Stewart","nat":"United Kingdom","first":1965,"last":1973,"starts":99,"wins":27,"poles":17,"podiums":43,"tier":"Champion","answer":true},{"name":"Robert Kubica","nat":"Poland","first":2006,"last":2021,"starts":99,"wins":1,"poles":1,"podiums":12,"tier":"Race winner","answer":true},{"name":"Pedro Diniz","nat":"Brazil","first":1995,"last":2000,"starts":98,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Marcus Ericsson","nat":"Sweden","first":2014,"last":2018,"starts":97,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Chris Amon","nat":"New Zealand","first":1963,"last":1976,"starts":96,"wins":0,"poles":5,"podiums":11,"tier":"Podium finisher","answer":true},{"name":"Jo Siffert","nat":"Switzerland","first":1962,"last":1971,"starts":96,"wins":2,"poles":2,"podiums":6,"tier":"Race winner","answer":true},{"name":"Pastor Maldonado","nat":"Venezuela","first":2011,"last":2015,"starts":95,"wins":1,"poles":1,"podiums":1,"tier":"Race winner","answer":true},{"name":"Patrick Depailler","nat":"France","first":1972,"last":1980,"starts":95,"wins":2,"poles":1,"podiums":19,"tier":"Race winner","answer":true},{"name":"Ukyo Katayama","nat":"Japan","first":1992,"last":1997,"starts":95,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Juan Pablo Montoya","nat":"Colombia","first":2001,"last":2006,"starts":94,"wins":7,"poles":13,"podiums":30,"tier":"Race winner","answer":true},{"name":"Ivan Capelli","nat":"Italy","first":1985,"last":1993,"starts":93,"wins":0,"poles":0,"podiums":3,"tier":"Podium finisher","answer":true},{"name":"James Hunt","nat":"United Kingdom","first":1973,"last":1979,"starts":92,"wins":10,"poles":14,"podiums":23,"tier":"Champion","answer":true},{"name":"Timo Glock","nat":"Germany","first":2004,"last":2012,"starts":91,"wins":0,"poles":0,"podiums":3,"tier":"Podium finisher","answer":true},{"name":"Takuma Sato","nat":"Japan","first":2002,"last":2008,"starts":90,"wins":0,"poles":0,"podiums":1,"tier":"Podium finisher","answer":true},{"name":"Dan Gurney","nat":"United States","first":1959,"last":1970,"starts":86,"wins":4,"poles":3,"podiums":19,"tier":"Race winner","answer":true},{"name":"Jean-Pierre Beltoise","nat":"France","first":1966,"last":1974,"starts":86,"wins":1,"poles":0,"podiums":8,"tier":"Race winner","answer":true},{"name":"Jonathan Palmer","nat":"United Kingdom","first":1983,"last":1989,"starts":83,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Marc Surer","nat":"Switzerland","first":1979,"last":1986,"starts":82,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Maurice Trintignant","nat":"France","first":1950,"last":1964,"starts":82,"wins":2,"poles":0,"podiums":9,"tier":"Race winner","answer":true},{"name":"Stefan Johansson","nat":"Sweden","first":1980,"last":1991,"starts":80,"wins":0,"poles":0,"podiums":12,"tier":"Podium finisher","answer":true},{"name":"Vitantonio Liuzzi","nat":"Italy","first":2005,"last":2011,"starts":80,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Oscar Piastri","nat":"Australia","first":2023,"last":2026,"starts":79,"wins":9,"poles":6,"podiums":28,"tier":"Race winner","answer":true},{"name":"Alessandro Nannini","nat":"Italy","first":1986,"last":1990,"starts":76,"wins":1,"poles":0,"podiums":9,"tier":"Race winner","answer":true},{"name":"Kamui Kobayashi","nat":"Japan","first":2009,"last":2014,"starts":75,"wins":0,"poles":0,"podiums":1,"tier":"Podium finisher","answer":true},{"name":"Hans-Joachim Stuck","nat":"Germany","first":1974,"last":1979,"starts":74,"wins":0,"poles":0,"podiums":2,"tier":"Podium finisher","answer":true},{"name":"Maurício Gugelmin","nat":"Brazil","first":1988,"last":1992,"starts":74,"wins":0,"poles":0,"podiums":1,"tier":"Podium finisher","answer":true},{"name":"Satoru Nakajima","nat":"Japan","first":1987,"last":1991,"starts":74,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Vittorio Brambilla","nat":"Italy","first":1974,"last":1980,"starts":74,"wins":1,"poles":1,"podiums":1,"tier":"Race winner","answer":true},{"name":"Carlos Pace","nat":"Brazil","first":1972,"last":1977,"starts":72,"wins":1,"poles":1,"podiums":6,"tier":"Race winner","answer":true},{"name":"Jim Clark","nat":"United Kingdom","first":1960,"last":1968,"starts":72,"wins":25,"poles":33,"podiums":32,"tier":"Champion","answer":true},{"name":"Piercarlo Ghinzani","nat":"Italy","first":1981,"last":1989,"starts":72,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Didier Pironi","nat":"France","first":1978,"last":1982,"starts":70,"wins":3,"poles":4,"podiums":13,"tier":"Race winner","answer":true},{"name":"Stefano Modena","nat":"Italy","first":1987,"last":1992,"starts":70,"wins":0,"poles":0,"podiums":2,"tier":"Podium finisher","answer":true},{"name":"Alexander Wurz","nat":"Austria","first":1997,"last":2007,"starts":69,"wins":0,"poles":0,"podiums":3,"tier":"Podium finisher","answer":true},{"name":"Bruno Giacomelli","nat":"Italy","first":1977,"last":1990,"starts":69,"wins":0,"poles":1,"podiums":1,"tier":"Podium finisher","answer":true},{"name":"Guanyu Zhou","nat":"China","first":2022,"last":2024,"starts":68,"wins":0,"poles":0,"podiums":0,"tier":"Points scorer","answer":true},{"name":"Gianni Morbidelli","nat":"Italy","first":1990,"last":1997,"starts":67,"wins":0,"poles":0,"podiums":1,"tier":"Podium finisher","answer":true},{"name":"Gilles Villeneuve","nat":"Canada","first":1977,"last":1982,"starts":67,"wins":6,"poles":2,"podiums":13,"tier":"Race winner","answer":true}];
+
+let POOL = [];      // everything guessable (autocomplete + clue chips)
+let ANSWERS = [];   // subset that can be the mystery driver
+let USING_FALLBACK = false;
+
+async function loadData(){
+  let data = null;
+  try{
+    const r = await fetch('drivers.json', {cache:'no-store'});
+    if (r.ok) data = await r.json();
+  }catch(e){}
+  if (!data || !data.length){ data = FALLBACK; USING_FALLBACK = true; }
+  POOL = data;
+  ANSWERS = data.filter(d => d.answer && d.seasons && d.seasons.length);
+}
+
+const plural = (n,w) => n + " " + w + (n === 1 ? "" : "s");
+function careerLine(d){
+  return [plural(d.starts,"start"), plural(d.wins,"win"),
+          plural(d.poles,"pole"), plural(d.podiums,"podium")].join(" · ");
+}
+
+/* ===================== game state & persistence ===================== */
+const NORMAL_GUESSES = 8, HARD_GUESSES = 5;
+const EPOCH = new Date(2026, 7, 4); // Round #1 = 4 Aug 2026
+
+// The daily is locked to these regardless of what the settings sliders say, so
+// that everyone is solving the same driver and shared grids mean something.
+const DAILY_MIN_STARTS = 30, DAILY_MIN_ERA = 1980;
+
+let mem = {}; // in-memory fallback when localStorage is unavailable (e.g. private mode)
+async function sGet(k){ try{ const raw = localStorage.getItem(k); return raw != null ? JSON.parse(raw) : (mem[k] ?? null); }catch(e){ return mem[k] ?? null; } }
+async function sSet(k,v){ mem[k]=v; try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+let settings = { hard:false, light:false, acYears:false, minStarts:30, era:1980 };
+let stats = { played:0, wins:0, streak:0, maxStreak:0, dist:{}, lastDailyWon:null };
+let G = null; // current game
+
+function dailyIndex(){
+  const now = new Date();
+  const days = Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate()) - EPOCH)/86400000);
+  return Math.max(0, days);
+}
+// seeded PRNG (xorshift32) so a day's driver and reveal order are the same for everyone
+function seededRng(seed){
+  let x = (seed >>> 0) || 1;
+  return function(){
+    x ^= x << 13; x >>>= 0;
+    x ^= x >>> 17;
+    x ^= x << 5;  x >>>= 0;
+    return x / 4294967296;
+  };
+}
+// Fisher–Yates shuffle of [0..n-1] using rand() (defaults to Math.random)
+function shuffledOrder(n, rand){
+  rand = rand || Math.random;
+  const a = Array.from({length:n}, (_,i)=>i);
+  for (let i=n-1;i>0;i--){ const j = Math.floor(rand()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; }
+  return a;
+}
+
+/* drivers.json is a generous superset; the two settings selects narrow it here
+   so changing them never needs a rebuild. Daily ignores them entirely. If a
+   combination selects nobody, fall back to the whole pool rather than break. */
+function answerPool(mode){
+  const minStarts = mode === "daily" ? DAILY_MIN_STARTS : settings.minStarts;
+  const era       = mode === "daily" ? DAILY_MIN_ERA    : settings.era;
+  const list = ANSWERS.filter(d => d.starts >= minStarts && d.last >= era);
+  return list.length ? list : ANSWERS;
+}
+// Walking the pool in index order would march down it by career length, so the
+// order is shuffled once with a fixed seed and the day's index reads off that.
+const DAILY_SHUFFLE_SEED = 0x51F1DB01;
+function dailyDriver(){
+  const pool = answerPool("daily");
+  const order = shuffledOrder(pool.length, seededRng(DAILY_SHUFFLE_SEED));
+  return pool[order[dailyIndex() % pool.length]];
+}
+
+function todayKey(){ return "daily-" + dailyIndex(); }
+// A day's record is stored under todayKey() from the first guess onwards, so an
+// unfinished round survives a refresh. done:false marks a game still in play.
+// Records written before in-progress saving existed have no `done` field and
+// are always complete.
+const isDone = rec => !!rec && rec.done !== false;
+async function saveDailyProgress(){
+  if (!G || G.mode !== "daily" || G.over) return;
+  await sSet(todayKey(), {done:false, hard:G.hard, guesses:G.guesses, revealed:G.revealed});
+}
+
+function newGame(mode){
+  const hard = settings.hard;
+  let driver;
+  if (mode === "daily") driver = dailyDriver();
+  else {
+    const pool = answerPool("practice");
+    let idx = Math.floor(Math.random()*pool.length);
+    if (G && pool.length > 1 && pool[idx].name === G.driver.name) idx = (idx+1) % pool.length;
+    driver = pool[idx];
+  }
+  // random order in which seasons are unmasked; seeded per-day so every player
+  // sees the same sequence, freshly random in testing
+  const rand = mode === "daily" ? seededRng((dailyIndex() * 2654435761) >>> 0 ^ 0x9e3779b9) : Math.random;
+  const revealOrder = shuffledOrder(driver.seasons.length, rand);
+  return {
+    mode, hard, driver,
+    maxGuesses: hard ? HARD_GUESSES : NORMAL_GUESSES,
+    guesses: [], revealed: 1, over:false, won:false, revealOrder
+  };
+}
+
+/* ===================== rendering ===================== */
+const $ = id => document.getElementById(id);
+const tbody = $("tbody"), chipsEl = $("chips"), guessList = $("guessList");
+
+function render(){
+  const d = G.driver, seasons = d.seasons;
+  let rows = "";
+  const shown = Math.min(G.revealed, seasons.length);
+  const order = G.revealOrder || Array.from({length:seasons.length}, (_,i)=>i);
+  const allShown = shown >= seasons.length;
+  // Revealed seasons fill from the top in the (random) order they were revealed,
+  // so the first season revealed is always the first row. Once every season is
+  // out, settle into chronological order for a clean full-career read.
+  const shownIdx = allShown ? seasons.map((_,i)=>i) : order.slice(0, shown);
+  for (let r=0;r<seasons.length;r++){
+    if (r < shownIdx.length){
+      const s = seasons[shownIdx[r]];
+      rows += '<tr class="season"><td>'+s.y+'</td><td>'+s.e+'</td><td>'+s.s+'</td><td>'+s.w+
+              '</td><td>'+s.p+'</td><td>'+s.q+'</td><td>'+s.f+'</td><td>'+s.dnf+'</td></tr>';
+    } else {
+      rows += '<tr class="masked"><td>····</td><td>··</td><td>··</td><td>··</td><td>··</td><td>··</td><td>··</td><td>··</td></tr>';
+    }
+  }
+  // bonus clue rows (Grand Prix mode only), unlocked after all seasons shown
+  if (!G.hard){
+    const extra = G.revealed - seasons.length;
+    if (extra >= 1) rows += '<tr class="season bonus"><td colspan="8">NATIONALITY: '+d.nat+'</td></tr>';
+    if (extra >= 2) rows += '<tr class="season bonus"><td colspan="8">CAREER: '+careerLine(d)+'</td></tr>';
+  }
+  tbody.innerHTML = rows;
+
+  $("metaLeft").textContent = "CAREER RECORD · " + seasons.length + " SEASONS";
+  $("metaRight").innerHTML = G.hard ? '<b>SPRINT</b>' : (G.mode==="daily" ? 'ROUND <b>#'+(dailyIndex()+1)+'</b>' : 'TESTING');
+  $("remain").innerHTML = G.over ? (G.won ? 'Chequered flag.' : 'DNF. Back on the grid tomorrow.')
+    : 'Lap <b>'+(G.guesses.length+1)+'</b> of <b>'+G.maxGuesses+'</b>';
+  $("guessInput").disabled = G.over;
+  $("btnGo").disabled = G.over || !$("guessInput").value.trim();
+
+  // guess history
+  guessList.innerHTML = G.guesses.map((g,i) => {
+    if (g.skip) return '<div class="guessrow skip"><span>Season revealed</span><span class="n">clue '+(i+1)+'</span></div>';
+    return '<div class="guessrow '+(g.correct?'right':'wrong')+'"><span>'+g.name+'</span><span class="n">'+(g.correct?'✔ chequered flag':'✘ off the track')+'</span></div>';
+  }).join("");
+
+  // aux buttons — once the game is over the clue/retire pair is replaced by a
+  // way back into the result sheet, so the day stays shareable all day
+  const maxReveal = seasons.length + (G.hard ? 0 : 2);
+  $("btnClue").disabled = G.over || G.revealed >= maxReveal || (G.guesses.length >= G.maxGuesses - 1);
+  $("btnGiveUp").disabled = G.over;
+  $("btnClue").hidden = G.over;
+  $("btnGiveUp").hidden = G.over;
+  $("btnResult").hidden = !G.over;
+}
+
+function renderChips(guessed){
+  if (G.hard){ chipsEl.innerHTML=""; return; }
+  const a = G.driver;
+  // The guess pool carries no season rows, so "same season" is judged against
+  // the guessed driver's active span — close enough, and never wrong about the
+  // answer's own seasons.
+  const overlap = a.seasons.some(s => s.y >= guessed.first && s.y <= guessed.last);
+  const sameTier = guessed.tier === a.tier;
+  const dir = a.first === guessed.first ? "same year" :
+              (a.first > guessed.first ? "debuted later ↓" : "debuted earlier ↑");
+  chipsEl.innerHTML =
+    '<span class="chip '+(overlap?'yes':'no')+'">'+(overlap?'✔':'✘')+' raced in the same season</span>' +
+    '<span class="chip '+(sameTier?'yes':'no')+'">'+(sameTier?'✔':'✘')+' same tier</span>' +
+    '<span class="chip">vs your guess: '+dir+'</span>';
+}
+
+/* ===================== guessing ===================== */
+const input = $("guessInput"), ac = $("ac");
+let acItems = [], acHl = -1;
+
+function norm(s){ return s.toLowerCase().normalize("NFD").replace(/[^a-z ]/g,""); }
+function filterDrivers(q){
+  q = norm(q);
+  if (!q) return [];
+  const guessedNames = new Set(G.guesses.filter(g=>!g.skip).map(g=>g.name));
+  return POOL.filter(d => !guessedNames.has(d.name) && norm(d.name).includes(q)).slice(0,6);
+}
+function openAc(list){
+  acItems = list; acHl = -1;
+  if (!list.length){ ac.classList.remove("open"); ac.innerHTML=""; return; }
+  ac.innerHTML = list.map((d,i) =>
+    '<button class="acitem" data-i="'+i+'">'+d.name+
+    (settings.acYears ? '<small>'+d.first+'–'+d.last+'</small>' : '')+'</button>'
+  ).join("");
+  ac.classList.add("open");
+}
+input.addEventListener("input", () => { openAc(filterDrivers(input.value)); $("btnGo").disabled = G.over || !input.value.trim(); });
+input.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    e.preventDefault();
+    if (!acItems.length) return;
+    acHl = (acHl + (e.key==="ArrowDown"?1:-1) + acItems.length) % acItems.length;
+    [...ac.children].forEach((el,i)=>el.classList.toggle("hl", i===acHl));
+  } else if (e.key === "Enter"){
+    if (acHl >= 0) pickDriver(acItems[acHl]); else submitGuess();
+  }
+});
+ac.addEventListener("click", e => {
+  const b = e.target.closest(".acitem");
+  if (b) pickDriver(acItems[+b.dataset.i]);
+});
+function pickDriver(d){ input.value = d.name; ac.classList.remove("open"); submitGuess(); }
+$("btnGo").addEventListener("click", submitGuess);
+document.addEventListener("click", e => { if (!e.target.closest(".guessbar")) ac.classList.remove("open"); });
+
+async function submitGuess(){
+  if (G.over) return;
+  const q = norm(input.value.trim());
+  const d = POOL.find(dr => norm(dr.name) === q) || filterDrivers(input.value)[0];
+  if (!d){ toast("Pick a driver from the list"); return; }
+  if (G.guesses.some(g => !g.skip && g.name === d.name)){ toast("Already guessed"); return; }
+
+  const correct = d.name === G.driver.name;
+  G.guesses.push({name:d.name, correct});
+  input.value = ""; ac.classList.remove("open");
+
+  if (correct){
+    G.over = true; G.won = true;
+    await finishGame();
+  } else {
+    renderChips(d);
+    G.revealed++;
+    if (G.guesses.length >= G.maxGuesses){ G.over = true; G.won = false; G.revealed = 999; await finishGame(); }
+    else await saveDailyProgress();
+  }
+  render();
+}
+
+$("btnClue").addEventListener("click", async () => {
+  if (G.over) return;
+  G.guesses.push({name:"Season revealed", skip:true});
+  G.revealed++;
+  chipsEl.innerHTML = "";
+  if (G.guesses.length >= G.maxGuesses){ G.over = true; G.won = false; G.revealed = 999; await finishGame(); }
+  else await saveDailyProgress();
+  render();
+});
+$("btnResult").addEventListener("click", showResult);
+$("btnGiveUp").addEventListener("click", async () => {
+  if (G.over) return;
+  G.over = true; G.won = false;
+  await finishGame();
+  render();
+});
+
+async function finishGame(){
+  G.revealed = 999; // open the whole table
+  if (G.mode === "daily"){
+    // only count the day once, even though an in-progress record already exists
+    const already = await sGet(todayKey());
+    if (!isDone(already)){
+      stats.played++;
+      if (G.won){
+        stats.wins++;
+        // a streak only survives if the previous win was yesterday; skipping a
+        // day starts it over. Stats saved before lastDailyWon was recorded have
+        // no history to judge, so they're given the benefit of the doubt.
+        const n = dailyIndex();
+        const continues = stats.lastDailyWon == null || stats.lastDailyWon === n - 1;
+        stats.streak = continues ? stats.streak + 1 : 1;
+        stats.lastDailyWon = n;
+        stats.maxStreak = Math.max(stats.maxStreak, stats.streak);
+        stats.dist[G.guesses.length] = (stats.dist[G.guesses.length]||0)+1;
+      } else stats.streak = 0;
+      await sSet("stats", stats);
+      await sSet(todayKey(), {done:true, won:G.won, n:G.guesses.length, hard:G.hard, guesses:G.guesses});
+    }
+  }
+  setTimeout(showResult, 650);
+}
+
+const WIN_VERDICTS = ["Pole to flag.","Lights out, job done.","Commanding.","Good drive.","On the podium.","In the points.","Late safety car.","Last lap pass."];
+
+function showResult(){
+  const d = G.driver;
+  $("resTag").textContent = G.mode==="daily" ? "JOURNEYMAN F1 · ROUND #"+(dailyIndex()+1) : "TESTING";
+  $("resWho").textContent = d.name;
+  $("resCareer").textContent = d.nat + " · " + d.tier + " · " + d.first + "–" + d.last + " · " + careerLine(d);
+  $("resVerdict").textContent = G.won
+    ? "Chequered flag. " + WIN_VERDICTS[Math.min(G.guesses.length-1, WIN_VERDICTS.length-1)] + " " + G.guesses.length + "/" + G.maxGuesses
+    : "DNF. Back on the grid tomorrow.";
+  $("shareFallback").style.display = "none";
+  $("ovResult").classList.add("open");
+}
+
+function shareUrl(){
+  const u = SITE_URL || (location.origin && location.origin !== "null" ? location.origin : "");
+  return u.replace(/\/+$/, "");
+}
+// Deliberately just the score, the grid and a link — the Buy Me a Coffee
+// prompt lives on the result sheet next to the share button, not in what
+// gets pasted into someone else's group chat.
+function shareText(){
+  const n = G.won ? G.guesses.length : "X";
+  const grid = G.guesses.map(g => g.skip ? "🟨" : (g.correct ? "🏁" : "🟥")).join("");
+  const tag = G.mode==="daily" ? "Round #"+(dailyIndex()+1) : "Testing";
+  const url = shareUrl();
+  return "Journeyman F1 "+tag+" — "+n+"/"+G.maxGuesses+(G.hard?" (Sprint)":"")+" 🏁\n"+grid+
+    (url ? "\n🏎 Play: "+url : "\n🏎 playjourneyman");
+}
+function legacyCopy(t){
+  try{
+    const ta = document.createElement("textarea");
+    ta.value = t;
+    ta.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+    document.body.appendChild(ta);
+    ta.focus(); ta.select(); ta.setSelectionRange(0, t.length);
+    const ok = document.execCommand("copy");
+    ta.remove();
+    return ok;
+  }catch(e){ return false; }
+}
+$("btnShare").addEventListener("click", async () => {
+  const t = shareText();
+  if (navigator.share){
+    try{ await navigator.share({text:t}); return; }
+    catch(e){ if (e.name === "AbortError") return; }
+  }
+  let copied = false;
+  try{ await navigator.clipboard.writeText(t); copied = true; }catch(e){}
+  if (!copied) copied = legacyCopy(t);
+  if (copied){ toast("Copied to clipboard"); return; }
+  // last resort: show the text so it can be long-pressed and copied
+  const fb = $("shareFallback");
+  fb.textContent = t;
+  fb.style.display = "block";
+  toast("Long-press the text to copy");
+});
+$("btnAgain").addEventListener("click", () => {
+  $("ovResult").classList.remove("open");
+  startGame("practice");
+});
+// tap a column header to explain it (hover shows the same via title=)
+document.querySelectorAll("thead th[data-info]").forEach(th => {
+  th.addEventListener("click", () => toast(th.dataset.info));
+});
+
+/* ===================== stats / settings UI ===================== */
+// The stored streak is only refreshed when a day is played, so a run broken by
+// a missed day has to be spotted at read time. A win yesterday is still live —
+// today can extend it — but anything older is done.
+function currentStreak(){
+  if (stats.lastDailyWon == null) return stats.streak;
+  return dailyIndex() - stats.lastDailyWon <= 1 ? stats.streak : 0;
+}
+function renderStats(){
+  $("statGrid").innerHTML = [
+    [stats.played,"Races started"],[stats.wins,"Chequered flags"],
+    [currentStreak(),"Current streak"],[stats.maxStreak,"Best streak"]
+  ].map(([v,l]) => '<div class="statbox"><div class="v">'+v+'</div><div class="l">'+l+'</div></div>').join("");
+  const max = Math.max(1, ...Object.values(stats.dist));
+  let html = "";
+  for (let i=1;i<=NORMAL_GUESSES;i++){
+    const c = stats.dist[i]||0;
+    const hit = G && G.mode==="daily" && G.won && G.guesses.length===i;
+    html += '<div class="distrow"><span>'+i+'</span><div class="distbar'+(hit?' hit':'')+'" style="width:'+Math.max(10, 100*c/max)+'%">'+c+'</div></div>';
+  }
+  $("dist").innerHTML = html;
+}
+
+function applyTheme(){ document.body.dataset.theme = settings.light ? "light" : "dark"; }
+function renderSettings(){
+  $("tglHard").classList.toggle("on", settings.hard);
+  $("tglLight").classList.toggle("on", settings.light);
+  $("tglAcYears").classList.toggle("on", settings.acYears);
+  $("selStarts").value = String(settings.minStarts);
+  $("selEra").value = String(settings.era);
+}
+$("tglHard").addEventListener("click", async () => {
+  settings.hard = !settings.hard; renderSettings(); await sSet("settings", settings);
+  toast(settings.hard ? "Sprint mode on — next game" : "Grand Prix mode on — next game");
+});
+$("tglLight").addEventListener("click", async () => {
+  settings.light = !settings.light; renderSettings(); applyTheme(); await sSet("settings", settings);
+});
+$("tglAcYears").addEventListener("click", async () => {
+  settings.acYears = !settings.acYears; renderSettings(); await sSet("settings", settings);
+});
+// Both selects only ever change the testing pool, so they take effect on the
+// next testing session rather than yanking the driver out from under a game.
+async function poolSettingChanged(){
+  await sSet("settings", settings);
+  toast("Testing pool: " + answerPool("practice").length + " drivers — from next session");
+}
+$("selStarts").addEventListener("change", async e => {
+  settings.minStarts = +e.target.value; await poolSettingChanged();
+});
+$("selEra").addEventListener("change", async e => {
+  settings.era = +e.target.value; await poolSettingChanged();
+});
+
+/* ===================== modals / tabs / toast ===================== */
+function openOv(id){ $(id).classList.add("open"); if(id==="ovStats") renderStats(); }
+$("btnHelp").addEventListener("click", ()=>openOv("ovHelp"));
+$("btnGames").addEventListener("click", ()=>openOv("ovGames"));
+$("btnStats").addEventListener("click", ()=>openOv("ovStats"));
+$("btnSettings").addEventListener("click", ()=>openOv("ovSettings"));
+document.querySelectorAll(".overlay").forEach(ov => {
+  ov.addEventListener("click", e => { if (e.target === ov || e.target.closest("[data-close]")) ov.classList.remove("open"); });
+});
+let toastT;
+function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),1800); }
+
+const tabDaily = $("tabDaily"), tabPractice = $("tabPractice");
+tabDaily.addEventListener("click", ()=>startGame("daily"));
+tabPractice.addEventListener("click", ()=>startGame("practice"));
+
+async function startGame(mode){
+  tabDaily.classList.toggle("on", mode==="daily");
+  tabPractice.classList.toggle("on", mode==="practice");
+  chipsEl.innerHTML = "";
+  if (mode === "daily"){
+    const rec = await sGet(todayKey());
+    if (rec){
+      // newGame reproduces the day's driver and reveal order deterministically,
+      // so the stored guesses can just be replayed on top of a fresh game.
+      G = newGame("daily");
+      G.hard = rec.hard; G.maxGuesses = rec.hard?HARD_GUESSES:NORMAL_GUESSES;
+      G.guesses = rec.guesses || [];
+      if (isDone(rec)){
+        // rebuild finished state so the day's result is viewable, not replayable
+        G.over = true; G.won = rec.won; G.revealed = 999;
+        render(); return;
+      }
+      // resume an unfinished round where it left off
+      G.revealed = rec.revealed || 1;
+      render();
+      // restore the feedback chips for the most recent real guess
+      const last = [...G.guesses].reverse().find(g => !g.skip);
+      const lastDriver = last && POOL.find(dr => dr.name === last.name);
+      if (lastDriver) renderChips(lastDriver);
+      return;
+    }
+  }
+  G = newGame(mode);
+  render();
+}
+
+/* ===================== init ===================== */
+(async function init(){
+  await loadData();
+  const s = await sGet("settings"); if (s) settings = Object.assign(settings, s);
+  const st = await sGet("stats"); if (st) stats = st;
+  applyTheme(); renderSettings();
+  $("coffeeMain").href = COFFEE_URL;
+  $("coffeeResult").href = COFFEE_URL;
+  let lo = Infinity, hi = -Infinity;
+  POOL.forEach(d => { if(d.first<lo) lo=d.first; if(d.last>hi) hi=d.last; });
+  $("dataYears").innerHTML = POOL.length + " drivers · seasons " + lo + "–" + hi +
+    '<br>Statistics via <a href="https://github.com/f1db/f1db" target="_blank" rel="noopener">F1DB</a>. ' +
+    'Not affiliated with Formula 1 or the FIA.';
+  $("dailyNo").textContent = "#" + (dailyIndex()+1);
+  await startGame("daily");
+  if (USING_FALLBACK) toast(POOL.length + " drivers (offline set)");
+  const seen = await sGet("seenHelp");
+  if (!seen){ openOv("ovHelp"); await sSet("seenHelp", true); }
+})();
+</script>
+</body>
+</html>

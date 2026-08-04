@@ -1,0 +1,32 @@
+name: Refresh driver data
+
+# Rebuilds drivers.json from the latest F1DB release. Runs weekly after the
+# race weekend + on manual trigger. Commits only if data changed; the commit
+# triggers Netlify's auto-deploy.
+
+on:
+  schedule:
+    - cron: "0 20 * * 1"   # Mondays 20:00 UTC (the day after most grands prix)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install deps
+        run: pip install pandas requests
+      - name: Build drivers.json
+        run: python3 build_drivers.py drivers.json
+      - name: Commit if changed
+        run: |
+          git config user.name "data-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add drivers.json
+          git diff --cached --quiet || git commit -m "chore: refresh driver data $(date -u +%F)"
+          git push
